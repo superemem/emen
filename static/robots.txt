@@ -1,0 +1,8 @@
+# File: static/robots.txt
+
+# Izinkan semua crawler untuk mengakses seluruh situs
+User-agent: *
+Allow: /
+
+# Tunjukkan lokasi sitemap kita
+Sitemap: https://emen.web.id/sitemap.xml

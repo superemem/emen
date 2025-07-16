@@ -2,7 +2,7 @@
 
 <script>
 	import { ArrowRight } from '@lucide/svelte';
-	import { fly } from 'svelte/transition'; // 1. Import transisi 'fly'
+	import { fly } from 'svelte/transition';
 
 	/** @type {import('./$types').PageData} */
 	export let data;
@@ -15,39 +15,44 @@
 </script>
 
 <svelte:head>
-	<title>Blog - Azwary</title>
-	<meta name="description" content="Kumpulan tulisan dan pemikiran dari Azwary." />
+	<title>Blog - Emen</title>
+	<meta name="description" content="Kumpulan tulisan dan pemikiran dari Emen." />
 </svelte:head>
 
 <div class="container mx-auto max-w-3xl px-4 py-12 md:py-20">
-	<h1 class="text-4xl font-bold">Blog</h1>
-	<p class="mt-4">
-		Di sini saya berbagi pemikiran, tutorial, dan cerita tentang perjalanan saya di dunia teknologi
-		dan desain.
-	</p>
+	<!-- Header halaman yang lebih megah -->
+	<header class="mb-16 text-center">
+		<h1 class="text-5xl font-bold text-slate-900">Blog</h1>
+		<p class="mt-4 text-lg text-slate-600">
+			Di sini saya berbagi pemikiran, tutorial, dan cerita tentang perjalanan saya di dunia
+			teknologi dan desain.
+		</p>
+	</header>
 
-	<div class="mt-12 flex flex-col gap-8">
-		<!-- 2. Tambahkan index 'i' untuk menghitung delay -->
+	<!-- Daftar artikel dengan banyak ruang kosong -->
+	<div class="space-y-10">
 		{#each data.posts as post, i (post.slug)}
-			<!-- 3. Tambahkan transisi 'in:fly' ke setiap kartu -->
 			<a
 				href={`/blog/${post.slug}`}
-				class="group block"
-				in:fly={{ x: -20, duration: 400, delay: i * 100 }}
+				class="group block rounded-xl bg-white p-8 text-center shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+				in:fly={{ y: 20, duration: 400, delay: 200 + i * 100 }}
 			>
 				<article>
 					<p class="text-sm text-slate-500">{formatDate(post.date)}</p>
 					<h2
-						class="mt-2 text-2xl font-bold transition-colors group-hover:text-slate-900 dark:group-hover:text-white"
+						class="mt-2 text-3xl font-bold text-slate-900 transition-colors group-hover:text-blue-600"
 					>
 						{post.title}
 					</h2>
-					<p class="mt-3 text-slate-600 dark:text-slate-400">{post.description}</p>
+					<p class="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-slate-700">
+						{post.description}
+					</p>
 					<div
-						class="mt-4 inline-flex items-center gap-2 font-medium text-slate-700 transition-colors group-hover:text-slate-900 dark:text-slate-200 dark:group-hover:text-white"
+						class="mt-6 inline-flex items-center gap-2 font-medium text-blue-600"
+						aria-hidden="true"
 					>
 						<span>Baca selengkapnya</span>
-						<ArrowRight size={18} />
+						<ArrowRight class="transition-transform group-hover:translate-x-1" size={18} />
 					</div>
 				</article>
 			</a>

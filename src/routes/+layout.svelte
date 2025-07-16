@@ -4,28 +4,17 @@
 	import '../app.css';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
-	import { theme } from '$lib/stores/theme.js';
-	import { onMount } from 'svelte';
-	import { page } from '$app/stores'; // 1. Import page store untuk mendapatkan URL
-	import { fade, fly } from 'svelte/transition'; // 2. Import transisi fade dan fly
-
-	onMount(() => {
-		theme.init();
-	});
+	import { page } from '$app/stores';
+	import { fly, fade } from 'svelte/transition';
 </script>
 
-<div class="flex min-h-screen flex-col font-sans antialiased transition-colors duration-300">
+<!-- Class bg-slate-50 dan text-slate-800 sudah dihapus dari sini -->
+<div class="flex min-h-screen flex-col font-sans antialiased">
 	<Header />
 
 	<main class="flex-grow">
-		<!-- 
-      {#key} block akan me-mount ulang isinya setiap kali nilainya berubah.
-      Dengan menggunakan URL pathname sebagai key, kita memaksa Svelte untuk
-      menghancurkan komponen halaman lama dan membuat yang baru saat navigasi.
-      Ini memungkinkan kita untuk menerapkan transisi masuk dan keluar.
-    -->
 		{#key $page.url.pathname}
-			<div in:fly={{ y: 15, duration: 700 }}>
+			<div in:fly={{ y: 15, delay: 300, duration: 300 }} out:fade={{ duration: 300 }}>
 				<slot />
 			</div>
 		{/key}

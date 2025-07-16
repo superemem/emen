@@ -2,7 +2,7 @@
 
 <script>
 	import { ArrowLeft } from '@lucide/svelte';
-	import Seo from '$lib/components/Seo.svelte'; // 1. Import komponen Seo
+	import Seo from '$lib/components/Seo.svelte';
 
 	/** @type {import('./$types').PageData} */
 	export let data;
@@ -15,13 +15,12 @@
 	}
 </script>
 
-<!-- 2. Ganti svelte:head yang lama dengan komponen Seo -->
 <Seo title={meta.title} description={meta.description} type="article" />
 
 <div class="container mx-auto max-w-3xl px-4 py-12 md:py-20">
 	<a
 		href="/blog"
-		class="mb-8 inline-flex items-center gap-2 text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+		class="mb-8 inline-flex items-center gap-2 text-slate-600 transition-colors hover:text-blue-600"
 	>
 		<ArrowLeft size={18} />
 		<span>Kembali ke semua tulisan</span>
@@ -29,13 +28,17 @@
 
 	<article>
 		<header class="mb-8">
-			<h1 class="text-3xl font-extrabold text-slate-900 md:text-5xl dark:text-white">
+			<h1 class="text-3xl font-extrabold text-slate-900 md:text-5xl">
 				{meta.title}
 			</h1>
 			<p class="mt-4 text-slate-500">Diterbitkan pada {formatDate(meta.date)}</p>
 		</header>
 
-		<div class="prose prose-lg dark:prose-invert mt-8 max-w-none text-slate-700">
+		<!-- 
+      Class 'prose' akan mengambil styling otomatis dari app.css yang sudah kita atur.
+      Tidak perlu 'dark:prose-invert' lagi.
+    -->
+		<div class="prose prose-lg mt-8 max-w-none">
 			<svelte:component this={content} />
 		</div>
 	</article>

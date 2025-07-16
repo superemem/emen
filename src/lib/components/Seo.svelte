@@ -8,7 +8,7 @@
 		title = 'Emen - Remote Worker Indonesia',
 		description = 'Portofolio dan blog pribadi Emen, Remote Worker di Indonesia. Membahas Digital Marketing, SEO dan Teknologi',
 		type = 'website',
-		imageUrl = 'https://via.placeholder.com/1200x630.png?text=Azwary.dev',
+		imageUrl = 'https://via.placeholder.com/1200x630.png?text=emen',
 		robots = 'index, follow'
 	} = $props();
 
@@ -31,7 +31,7 @@
 	<meta property="og:title" content={title} />
 	<meta property="og:description" content={description} />
 	<meta property="og:url" content={url} />
-	<meta property="og:site_name" content="Azwary" />
+	<meta property="og:site_name" content="Emen" />
 	<meta property="og:type" content={type} />
 	<meta property="og:image" content={imageUrl} />
 	<meta property="og:image:width" content="1200" />

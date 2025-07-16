@@ -12,18 +12,23 @@
 	}
 </script>
 
-<!-- PERUBAHAN DI SINI: tambahkan bg-white dan shadow-md -->
 <div class="mb-4 overflow-hidden rounded-xl bg-white shadow-md">
 	<button
 		onclick={toggle}
-		class="flex w-full items-center justify-between p-4 text-left transition-colors hover:bg-slate-50"
+		class="flex w-full items-start justify-between p-4 text-left transition-colors hover:bg-slate-50"
 		aria-expanded={isOpen}
 	>
-		<div class="flex flex-col md:flex-row md:items-center md:gap-4">
+		<!-- Bagian Kiri: Judul dan Jabatan -->
+		<div class="flex flex-col">
 			<h3 class="font-bold text-slate-900">{title}</h3>
-			<p class="text-sm text-slate-600 md:text-base">{jobTitle}</p>
+			<p class="text-sm text-slate-600">{jobTitle}</p>
+			<!-- PERUBAHAN DI SINI: Tampilkan periode di mobile -->
+			<p class="mt-2 text-xs text-slate-500 md:hidden">{period}</p>
 		</div>
-		<div class="flex items-center gap-4">
+
+		<!-- Bagian Kanan: Periode (desktop) dan Panah -->
+		<div class="flex flex-shrink-0 items-center gap-4 pl-4">
+			<!-- Sembunyikan periode di mobile, tampilkan di desktop -->
 			<span class="hidden text-sm text-slate-500 md:inline">{period}</span>
 			<ChevronDown
 				class="text-slate-500 transition-transform duration-300 {isOpen ? 'rotate-180' : ''}"

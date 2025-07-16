@@ -1,7 +1,7 @@
 <!-- File: src/routes/+page.svelte -->
 
 <script>
-	import { Linkedin, Instagram } from '@lucide/svelte';
+	import { Linkedin, Instagram, Mail, Download } from '@lucide/svelte';
 	import Accordion from '$lib/components/Accordion.svelte';
 	import Seo from '$lib/components/Seo.svelte';
 
@@ -44,8 +44,25 @@
 				<Instagram size={24} />
 			</a>
 		</div>
+		<div class="mt-8 flex flex-col items-center gap-4 sm:flex-row">
+			<a
+				href="/resume.pdf"
+				target="_blank"
+				class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white shadow-lg shadow-blue-500/20 transition-all hover:-translate-y-1 hover:bg-blue-700 sm:w-auto"
+			>
+				<Download size={18} />
+				<span>Resume</span>
+			</a>
+			<a
+				href="mailto:halo@emen.web.id"
+				class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-white px-6 py-3 font-semibold text-slate-700 shadow-md transition-all hover:-translate-y-1 hover:shadow-lg sm:w-auto"
+			>
+				<Mail size={18} />
+				<span>Contact Me</span>
+			</a>
+		</div>
 	</section>
-	<section class="mx-auto mt-16 max-w-2xl text-center md:mt-24">
+	<section class="mx-auto mt-16 max-w-2xl text-center md:mt-10">
 		<h2 class="text-3xl font-bold text-slate-900">About Me</h2>
 		<div class="mt-6 space-y-4 text-left text-slate-700 md:text-center">
 			<p>
@@ -58,7 +75,7 @@
 	</section>
 
 	<!-- SECTION: EXPERIENCE -->
-	<section class="mx-auto mt-16 max-w-3xl md:mt-24">
+	<section class="mx-auto mt-16 max-w-3xl md:mt-10">
 		<h2 class="text-center text-3xl font-bold text-slate-900">Work Experience</h2>
 		<div class="mt-8">
 			{#each experiences as exp}
@@ -73,7 +90,7 @@
 	</section>
 
 	<!-- SECTION: EDUCATION -->
-	<section class="mx-auto mt-16 max-w-3xl md:mt-24">
+	<section class="mx-auto mt-16 max-w-3xl md:mt-10">
 		<h2 class="text-center text-3xl font-bold text-slate-900">Education</h2>
 		<div class="mt-8 grid gap-8 md:grid-cols-2">
 			{#each education as edu}
@@ -90,7 +107,7 @@
 	</section>
 
 	<!-- ... (SECTION: PROJECTS PREVIEW & SKILLS tidak berubah) ... -->
-	<section class="mt-16 md:mt-24">
+	<section class="mt-16 md:mt-10">
 		<div class="mx-auto max-w-3xl text-center">
 			<h2 class="text-3xl font-bold text-slate-900">Featured Projects</h2>
 			<p class="mt-4 text-slate-600">Berikut adalah beberapa proyek yang pernah saya kerjakan.</p>

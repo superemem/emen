@@ -24,8 +24,8 @@ export const experienceData = [
 	},
 	{
 		title: 'infoSumbar',
-		jobTitle: 'Junior Web Developer',
-		period: '2020 - 2022',
+		jobTitle: 'Co-Founder',
+		period: '2012 - 2020',
 		details: `<p>Membantu tim dalam pengembangan fitur-fitur baru untuk produk utama perusahaan menggunakan React dan Next.js. Terlibat dalam proses slicing desain dari Figma ke kode yang presisi.</p>`
 	}
 ];
@@ -33,14 +33,14 @@ export const experienceData = [
 /** @type {import('$lib/types').Education[]} */
 export const educationData = [
 	{
-		school: 'Universitas Keren Banget',
-		degree: 'S1 - Teknik Informatika',
-		period: '2016 - 2020'
+		school: 'Politeknik Negeri Padang',
+		degree: 'D3 - Teknik Telekomunikasi',
+		period: '2009 - 2013'
 	},
 	{
-		school: 'SMA Negeri 1 Contoh',
+		school: 'SMA Negeri 1 Nan Sabaris',
 		degree: 'IPA',
-		period: '2013 - 2016'
+		period: '2006 - 2009'
 	}
 ];
 
@@ -49,10 +49,10 @@ export const skillsData = [
 	'SEO',
 	'Digital Marketing Strategist',
 	'Looker Studio',
-	'SvelteKit',
-	'Tailwind CSS',
-	'JavaScript (ES6+)',
-	'TypeScript',
-	'Node.js',
+	'Google Search Console',
+	'Google Analytics',
+	'SEMrush',
+	'Wordpress',
+	'Yoast SEO',
 	'Git & GitHub'
 ];

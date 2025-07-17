@@ -8,8 +8,8 @@
 </script>
 
 <svelte:head>
-	<title>Projects - Azwary</title>
-	<meta name="description" content="Kumpulan proyek yang pernah dikerjakan oleh Azwary." />
+	<title>Projects - Emen</title>
+	<meta name="description" content="Kumpulan proyek yang pernah dikerjakan oleh Emen." />
 </svelte:head>
 
 <div class="container mx-auto max-w-3xl px-4 py-12 md:py-20">

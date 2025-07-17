@@ -8,7 +8,7 @@
 <footer class="mt-20 border-t border-slate-200 dark:border-slate-800">
 	<div class="container mx-auto flex flex-col items-center justify-between gap-4 p-6 sm:flex-row">
 		<p class="text-sm text-slate-600 dark:text-slate-400">
-			&copy; {currentYear}Emen. All rights reserved.
+			&copy; {currentYear} Emen. All rights reserved.
 		</p>
 		<div class="flex items-center gap-4">
 			<a

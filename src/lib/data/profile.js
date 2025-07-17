@@ -4,17 +4,21 @@
 export const experienceData = [
 	{
 		title: 'PT Azzwars Wangi Abadi',
-		jobTitle: 'Frontend Developer',
+		jobTitle: 'Head of Creative Marketing',
 		period: 'Nov 2022 - Sekarang',
-		details: `<p>Membangun dan memelihara aplikasi web interaktif menggunakan SvelteKit dan Tailwind CSS. Bertanggung jawab atas arsitektur frontend dan memastikan pengalaman pengguna yang optimal di berbagai perangkat.</p>
+		details: `<p>Mengelola aktivitas Devisi Creative Marketing PT. Azzwars Wangi Abadi, untuk melakuan pengembangan strategi pemasaran dan kampanye iklan yang efektif, dan pengelolaan aktivasi digital.</p>
                <ul>
-                <li>Mengimplementasikan sistem desain berbasis komponen.</li>
-                <li>Meningkatkan performa loading halaman sebesar 40%.</li>
+                <li>Mendesign ulang kemasan produk Travel Size bersama tim graphic designer.</li>
+                <li>Membuat dan menjalankan strategi konten untuk akun @AzzwarsPerfumeOfficial, @AzwaPerfumeOfficial. @AzwaryPerfume dan @HunnyFemme.</li>
+				<li>Melakukan riset kompetitor dan analisis pasar untuk memprediksi tren dan kebutuhan pasar.</li>
+				<li>Melakuakn riset tren konten untuk pengembangan konten yang sesuai dengan kebutuhan pasar.</li>
+				<li>Membuat dan mengelola channel baru penjualan dan pemasaran di Shopee dan Tiktokshop</li>
+				<li>Melakukan riset tools dan apps untuk adopsi teknologi baru dalam perusahaan</li>
                </ul>`
 	},
 	{
 		title: 'Haluan Media Group',
-		jobTitle: 'Junior Web Developer',
+		jobTitle: 'Digital Manager',
 		period: 'Sept 2020 - Sept 2021',
 		details: `<p>Membantu tim dalam pengembangan fitur-fitur baru untuk produk utama perusahaan menggunakan React dan Next.js. Terlibat dalam proses slicing desain dari Figma ke kode yang presisi.</p>`
 	},

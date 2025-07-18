@@ -1,14 +1,17 @@
 <!-- File: src/routes/blog/[slug]/+page.svelte -->
 
 <script>
-	import { ArrowLeft } from '@lucide/svelte';
+	import { ArrowLeft, Clock } from '@lucide/svelte';
 	import Seo from '$lib/components/Seo.svelte';
 
 	/** @type {import('./$types').PageData} */
 	export let data;
 
+	// Destrukturisasi langsung readingTime, author, dan tags dari meta
 	const { content, meta } = data;
+	const { readingTime, author, tags } = meta; // Waktu baca, penulis, dan tag sekarang datang dari server
 
+	// Fungsi untuk memformat tanggal
 	function formatDate(dateString) {
 		const options = { year: 'numeric', month: 'long', day: 'numeric' };
 		return new Date(dateString).toLocaleDateString('id-ID', options);
@@ -31,10 +34,32 @@
 			<h1 class="text-3xl font-extrabold text-slate-900 md:text-5xl">
 				{meta.title}
 			</h1>
-			<p class="mt-4 text-slate-500">Diterbitkan pada {formatDate(meta.date)}</p>
+			<div class="mt-4 flex flex-col gap-2 text-slate-500 sm:flex-row sm:items-center sm:gap-4">
+				<p>Diterbitkan pada {formatDate(meta.date)}</p>
+				{#if author}
+					<p>Oleh: {author}</p>
+				{/if}
+				{#if readingTime > 0}
+					<div class="flex items-center gap-1">
+						<Clock size={16} />
+						<span>{readingTime} menit baca</span>
+					</div>
+				{/if}
+			</div>
+			{#if tags && tags.length > 0}
+				<div class="mt-4 flex flex-wrap gap-2">
+					{#each tags as tag}
+						<span
+							class="inline-block rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+						>
+							{tag}
+						</span>
+					{/each}
+				</div>
+			{/if}
 		</header>
 
-		<!-- 
+		<!--
       Class 'prose' akan mengambil styling otomatis dari app.css yang sudah kita atur.
       Tidak perlu 'dark:prose-invert' lagi.
     -->

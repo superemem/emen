@@ -14,7 +14,7 @@
 
 	<main class="flex-grow">
 		{#key $page.url.pathname}
-			<div in:fly={{ y: 15, delay: 300, duration: 300 }} out:fade={{ duration: 300 }}>
+			<div in:fly={{ y: 15, duration: 600 }}>
 				<slot />
 			</div>
 		{/key}

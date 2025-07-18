@@ -2,6 +2,9 @@
 title: '3 Manfaat Tak Terduga dari Belajar Coding'
 date: '2024-12-15'
 description: 'Belajar coding tidak hanya soal membuat situs atau program—ada manfaat terselubung yang bisa diterapkan di kehidupan sehari-hari.'
+author: 'Emen'
+tags: ['coding', 'belajar', 'manfaat']
+image: 'https://i.imgur.com/3QG7nQo.jpg'
 ---
 
 Belajar coding tidak hanya soal membuat situs atau program—ada manfaat terselubung yang bisa diterapkan di kehidupan sehari-hari.

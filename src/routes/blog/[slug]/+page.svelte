@@ -23,7 +23,7 @@
 <div class="container mx-auto max-w-3xl px-4 py-12 md:py-20">
 	<a
 		href="/blog"
-		class="mb-8 inline-flex items-center gap-2 text-slate-600 transition-colors hover:text-blue-600"
+		class="mb-8 inline-flex items-center gap-2 text-slate-600 transition-colors hover:text-blue-600 dark:text-slate-200"
 	>
 		<ArrowLeft size={18} />
 		<span>Kembali ke semua tulisan</span>
@@ -31,7 +31,7 @@
 
 	<article>
 		<header class="mb-8">
-			<h1 class="text-3xl font-extrabold text-slate-900 md:text-5xl">
+			<h1 class="text-3xl font-extrabold text-slate-900 md:text-5xl dark:text-white">
 				{meta.title}
 			</h1>
 			<div class="mt-4 flex flex-col gap-2 text-slate-500 sm:flex-row sm:items-center sm:gap-4">

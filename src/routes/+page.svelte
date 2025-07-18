@@ -22,8 +22,12 @@
 			class="h-32 w-32 rounded-full border-4 border-yellow-200 object-cover shadow-md hover:border-blue-400"
 			loading="lazy"
 		/>
-		<h1 class="mt-6 text-4xl font-bold text-slate-900">Irfan Mursyidin a.k.a Emen</h1>
-		<p class="mt-2 text-lg text-slate-600">Digital Marketing & SEO Specialist</p>
+		<h1 class="mt-6 text-4xl font-bold text-slate-900 dark:text-white">
+			Irfan Mursyidin a.k.a Emen
+		</h1>
+		<p class="mt-2 text-lg text-slate-600 dark:text-slate-400">
+			Digital Marketing & SEO Specialist
+		</p>
 		<div class="mt-6 flex items-center gap-4">
 			<a
 				href="https://linkedin.com/in/emenn"
@@ -63,8 +67,8 @@
 		</div>
 	</section>
 	<section class="mx-auto mt-16 max-w-2xl text-center md:mt-10">
-		<h2 class="text-3xl font-bold text-slate-900">About Me</h2>
-		<div class="mt-6 space-y-4 text-left text-slate-700 md:text-center">
+		<h2 class="text-3xl font-bold text-slate-900 dark:text-white">About Me</h2>
+		<div class="mt-6 space-y-4 text-left text-slate-700 md:text-center dark:text-slate-200">
 			<p>
 				Digital Marketing and SEO Specialist with 8 years of experience, specializing in driving
 				online visibility and business growth through strategic SEO implementation and comprehensive
@@ -76,7 +80,7 @@
 
 	<!-- SECTION: EXPERIENCE -->
 	<section class="mx-auto mt-16 max-w-3xl md:mt-10">
-		<h2 class="text-center text-3xl font-bold text-slate-900">Work Experience</h2>
+		<h2 class="text-center text-3xl font-bold text-slate-900 dark:text-white">Work Experience</h2>
 		<div class="mt-8">
 			{#each experiences as exp}
 				<Accordion
@@ -91,16 +95,16 @@
 
 	<!-- SECTION: EDUCATION -->
 	<section class="mx-auto mt-16 max-w-3xl md:mt-10">
-		<h2 class="text-center text-3xl font-bold text-slate-900">Education</h2>
+		<h2 class="text-center text-3xl font-bold text-slate-900 dark:text-white">Education</h2>
 		<div class="mt-8 grid gap-8 md:grid-cols-2">
 			{#each education as edu}
 				<!-- PERUBAHAN DI SINI: tambahkan bg-white, shadow-md, dan efek hover -->
 				<div
-					class="rounded-xl bg-white p-6 shadow-md transition-all hover:-translate-y-1 hover:shadow-lg"
+					class="rounded-xl bg-white p-6 shadow-md transition-all hover:-translate-y-1 hover:shadow-lg dark:bg-gray-800 dark:shadow-xl"
 				>
-					<h3 class="font-bold text-slate-800">{edu.school}</h3>
-					<p class="mt-1 text-slate-600">{edu.degree}</p>
-					<p class="mt-2 text-sm text-slate-500">{edu.period}</p>
+					<h3 class="font-bold text-slate-800 dark:text-slate-200">{edu.school}</h3>
+					<p class="mt-1 text-slate-600 dark:text-slate-400">{edu.degree}</p>
+					<p class="dark:text-slate-400text-sm mt-2 text-slate-500">{edu.period}</p>
 				</div>
 			{/each}
 		</div>
@@ -109,8 +113,10 @@
 	<!-- ... (SECTION: PROJECTS PREVIEW & SKILLS tidak berubah) ... -->
 	<section class="mt-16 md:mt-10">
 		<div class="mx-auto max-w-3xl text-center">
-			<h2 class="text-3xl font-bold text-slate-900">Featured Projects</h2>
-			<p class="mt-4 text-slate-600">Berikut adalah beberapa proyek yang pernah saya kerjakan.</p>
+			<h2 class="text-3xl font-bold text-slate-900 dark:text-white">Featured Projects</h2>
+			<p class="mt-4 text-slate-600 dark:text-slate-300">
+				Berikut adalah beberapa proyek yang pernah saya kerjakan.
+			</p>
 		</div>
 		<div class="mx-auto mt-8 grid max-w-5xl gap-8 md:grid-cols-2">
 			{#each featuredProjects as project}
@@ -124,8 +130,8 @@
 						/>
 					</div>
 					<div class="p-6">
-						<h3 class="text-xl font-bold text-slate-800">{project.title}</h3>
-						<p class="mt-2 text-sm text-slate-600">{project.description}</p>
+						<h3 class="text-xl font-bold text-slate-800 dark:text-slate-300">{project.title}</h3>
+						<p class="mt-2 text-sm text-slate-600 dark:text-slate-400">{project.description}</p>
 						<div class="mt-4 flex flex-wrap gap-2">
 							{#each project.tags as tag}
 								<span
@@ -146,7 +152,9 @@
 		</div>
 	</section>
 	<section class="mx-auto mt-16 max-w-3xl md:mt-24">
-		<h2 class="text-center text-3xl font-bold text-slate-900">Skills & Expertise</h2>
+		<h2 class="text-center text-3xl font-bold text-slate-900 dark:text-white">
+			Skills & Expertise
+		</h2>
 		<div class="mt-8 flex flex-wrap justify-center gap-3">
 			{#each skills as skill}
 				<div class="rounded-lg bg-slate-100 px-4 py-2 font-medium text-slate-700">

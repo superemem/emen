@@ -2,15 +2,27 @@
 
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+	--color-primary: #333333;
+	--color-muted: #eaeaea;
+	--color-tertiary: #9e9e9e;
+}
+
+.dark {
+	--color-primary: #d0d0d0;
+	--color-muted: #242424;
+	--color-tertiary: #6a6a6a;
+}
+
 @layer base {
-	/*
-    =================================================================
-    FONDASI DESAIN BARU
-    =================================================================
-    - Background diubah menjadi abu-abu muda (slate-50) agar kartu putih bisa 'timbul'.
-  */
 	body {
 		@apply bg-slate-50 font-sans text-slate-900 antialiased;
+	}
+
+	.dark body {
+		@apply bg-gray-900 text-white;
 	}
 
 	.prose h1,
@@ -22,9 +34,22 @@
 		@apply font-semibold text-slate-900;
 	}
 
+	.dark .prose h1,
+	.dark .prose h2,
+	.dark .prose h3,
+	.dark .prose h4,
+	.dark .prose h5,
+	.dark .prose h6 {
+		@apply text-white;
+	}
+
 	.prose h2 {
 		@apply mt-10 mb-4 border-b border-slate-200 pb-2 text-3xl leading-tight;
 	}
+	.dark .prose h2 {
+		@apply border-gray-700;
+	}
+
 	.prose h3 {
 		@apply mt-8 mb-4 text-2xl leading-snug;
 	}
@@ -33,13 +58,24 @@
 		@apply mb-6 leading-relaxed text-slate-700;
 	}
 
+	.dark .prose p {
+		@apply text-gray-300;
+	}
+
 	.prose a {
-		/* Menggunakan warna biru standar dari Tailwind */
 		@apply text-blue-600 transition-colors hover:text-blue-700;
+	}
+
+	.dark .prose a {
+		@apply text-blue-400 hover:text-blue-300;
 	}
 
 	.prose strong {
 		@apply font-bold text-slate-800;
+	}
+
+	.dark .prose strong {
+		@apply text-white;
 	}
 
 	.prose ol,
@@ -47,28 +83,40 @@
 		@apply mb-6 pl-6 text-slate-700;
 	}
 
-	.prose ol {
-		@apply list-decimal;
-	}
-
-	.prose ul {
-		@apply list-disc;
+	.dark .prose ol,
+	.dark .prose ul {
+		@apply text-gray-300;
 	}
 
 	.prose li {
-		@apply mb-2;
+		@apply mb-2 text-slate-700;
+	}
+	.dark .prose li {
+		@apply mb-2 text-gray-300;
 	}
 
 	.prose blockquote {
 		@apply border-l-4 border-slate-200 pl-4 text-slate-600 italic;
 	}
 
+	.dark .prose blockquote {
+		@apply border-gray-700 text-gray-400;
+	}
+
 	.prose code {
 		@apply rounded bg-slate-200 px-1.5 py-1 font-mono text-sm text-slate-800;
 	}
 
+	.dark .prose code {
+		@apply bg-gray-700 text-gray-200;
+	}
+
 	.prose pre {
 		@apply mb-6 overflow-x-auto rounded-lg bg-slate-900 p-4 text-sm text-slate-100;
+	}
+
+	.dark .prose pre {
+		@apply bg-gray-800 text-gray-100;
 	}
 
 	.prose pre code {
@@ -78,6 +126,15 @@
 
 @layer components {
 	.card-lift {
-		@apply block overflow-hidden rounded-lg border border-slate-200 transition-all hover:-translate-y-1 hover:shadow-xl;
+		/* Tambahkan warna background dan teks default untuk mode terang */
+		@apply block overflow-hidden rounded-lg border border-slate-200 bg-white text-slate-900 transition-all hover:-translate-y-1 hover:shadow-xl;
+	}
+	/* Aturan untuk mode gelap pada card-lift */
+	.dark .card-lift {
+		/* Pastikan menimpa warna default dengan warna mode gelap */
+		@apply border-gray-700 bg-gray-800 text-white;
+	}
+	.dark .card-lift:hover {
+		@apply shadow-lg;
 	}
 }

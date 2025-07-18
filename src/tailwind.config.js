@@ -1,9 +1,15 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
-	darkMode: 'class', // Class-based dark mode
 	theme: {
-		extend: {}
+		extend: {
+			colors: {
+				primary: 'var(--color-primary)',
+				muted: 'var(--color-muted)',
+				tertiary: 'var(--color-tertiary)'
+			}
+		}
 	},
-	plugins: []
+	plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+	darkMode: 'class' // Use the 'class' strategy
 };

@@ -30,8 +30,8 @@
          - text-left ditambahkan ke h1 dan p untuk perataan kiri.
     -->
 	<header class="mb-16">
-		<h1 class="text-left text-5xl font-bold text-slate-900">Blog.</h1>
-		<p class="mt-4 text-left text-lg text-slate-600">
+		<h1 class="text-left text-5xl font-bold text-slate-900 dark:text-white">Blog.</h1>
+		<p class="mt-4 text-left text-lg text-slate-600 dark:text-slate-300">
 			Kumpulan berbagai tulisan dan pemikiran dari berbagai topik untuk sekedar mengeluarkan
 			pendapat atau isi kepala. Saya tidak berjanji ini akan aktif, tapi setiap ada pemikiran akan
 			saya usahakan tulis di sini.
@@ -50,20 +50,24 @@
             -->
 			<a
 				href={`/blog/${post.slug}`}
-				class="group block rounded-xl bg-white p-8 shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+				class="group block rounded-xl bg-white p-8 shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl dark:bg-gray-800 dark:shadow-xl"
 				in:fly={{ y: 20, duration: 600 }}
 			>
 				<article>
 					<!-- Tanggal: text-left ditambahkan -->
-					<p class="text-left text-sm text-slate-500">{formatDate(post.date)}</p>
+					<p class="text-left text-sm text-slate-500 dark:text-slate-400">
+						{formatDate(post.date)}
+					</p>
 					<!-- Judul: text-left ditambahkan -->
 					<h2
-						class="mt-2 text-left text-3xl font-bold text-slate-900 transition-colors group-hover:text-blue-600"
+						class="mt-2 text-left text-3xl font-bold text-slate-900 transition-colors group-hover:text-blue-600 dark:text-white"
 					>
 						{post.title}
 					</h2>
 					<!-- Deskripsi: mx-auto dihapus, text-left ditambahkan -->
-					<p class="mt-4 max-w-2xl text-left text-lg leading-relaxed text-slate-700">
+					<p
+						class="mt-4 max-w-2xl text-left text-lg leading-relaxed text-slate-700 dark:text-slate-400"
+					>
 						{post.description}
 					</p>
 					<!-- Tautan "Baca selengkapnya":

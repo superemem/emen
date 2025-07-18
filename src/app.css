@@ -78,10 +78,59 @@
 		@apply text-white;
 	}
 
-	.prose ol,
+	/* PERBAIKAN KOMPREHENSIF UNTUK BULLET POINTS */
 	.prose ul {
-		@apply mb-6 pl-6 text-slate-700;
+		@apply mb-6;
+		padding-left: 2rem !important;
+		list-style-type: disc !important;
+		list-style-position: outside !important;
+		margin-left: 0 !important;
 	}
+
+	.prose ol {
+		@apply mb-6;
+		padding-left: 2rem !important;
+		list-style-type: decimal !important;
+		list-style-position: outside !important;
+		margin-left: 0 !important;
+	}
+
+	.prose ul li,
+	.prose ol li {
+		@apply mb-2;
+		display: list-item !important;
+		padding-left: 0 !important;
+		margin-left: 0 !important;
+	}
+
+	.prose ul li::marker {
+		color: inherit !important;
+		font-size: inherit !important;
+	}
+
+	.prose ol li::marker {
+		color: inherit !important;
+		font-size: inherit !important;
+	}
+
+	/* Nested lists */
+	.prose ul ul,
+	.prose ol ol,
+	.prose ul ol,
+	.prose ol ul {
+		margin-top: 0.5rem !important;
+		margin-bottom: 0.5rem !important;
+		padding-left: 1.5rem !important;
+	}
+
+	.prose ul ul li {
+		list-style-type: circle !important;
+	}
+
+	.prose ul ul ul li {
+		list-style-type: square !important;
+	}
+	/* AKHIR PERBAIKAN BULLET POINTS */
 
 	.dark .prose ol,
 	.dark .prose ul {
@@ -89,10 +138,7 @@
 	}
 
 	.prose li {
-		@apply mb-2 text-slate-700;
-	}
-	.dark .prose li {
-		@apply mb-2 text-gray-300;
+		@apply mb-2;
 	}
 
 	.prose blockquote {

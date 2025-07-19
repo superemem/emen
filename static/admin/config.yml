@@ -5,7 +5,7 @@ backend:
   branch: main
   auth_type: implicit
   app_id: Ov23liJGP9rgsb1jftEl # GANTI INI: Client ID dari aplikasi GitHub OAuth-mu
-  auth_proxy_url: http://www.emen.web.id/api/auth # URL ke SvelteKit API endpoint kita
+  auth_proxy_url: https://www.emen.web.id/api/auth # URL ke SvelteKit API endpoint kita
 
 media_folder: static/uploads # Pastikan folder ini ada di root SvelteKit Anda
 public_folder: /uploads

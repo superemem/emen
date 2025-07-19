@@ -1,4 +1,4 @@
-// src/routes/api/auth/+server.js
+// src/routes/api/auth/+server.js - Simple version
 import { json } from '@sveltejs/kit';
 
 const CLIENT_ID = 'Ov23liJGP9rgsb1jftEl';
@@ -6,25 +6,13 @@ const CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 
 export async function GET({ url, request }) {
 	const code = url.searchParams.get('code');
-	const state = url.searchParams.get('state');
-
-	// Debug log
-	console.log('Auth endpoint called with:', {
-		code: code,
-		state: state,
-		fullUrl: url.toString(),
-		searchParams: Array.from(url.searchParams.entries())
-	});
 
 	if (!code) {
-		// Redirect to GitHub OAuth if no code
 		const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent('https://www.emen.web.id/api/auth')}&scope=repo&state=${Date.now()}`;
 
 		return new Response(null, {
 			status: 302,
-			headers: {
-				Location: githubAuthUrl
-			}
+			headers: { Location: githubAuthUrl }
 		});
 	}
 
@@ -49,43 +37,28 @@ export async function GET({ url, request }) {
 			return json({ error: tokenData.error }, { status: 400 });
 		}
 
-		// Return the token to DecapCMS
-		const script = `
-            <script>
-                (function() {
-                    function receiveMessage(e) {
-                        console.log("receiveMessage %o", e);
-                        if (e.origin !== "${url.origin}") {
-                            console.log("origin mismatch");
-                            return;
-                        }
-                        
-                        if (e.data === "authorizing:github") {
-                            window.postMessage('authorization:github:success:${JSON.stringify(tokenData)}', e.origin);
-                        }
-                    }
+		// Simple HTML that just redirects with fragment
+		const html = `
+            <!DOCTYPE html>
+            <html>
+            <head><title>Auth Success</title></head>
+            <body>
+                <script>
+                    // Store token temporarily
+                    sessionStorage.setItem('decap_auth_token', '${tokenData.access_token}');
                     
-                    window.addEventListener("message", receiveMessage, false);
-                    
-                    // Send message to parent
-                    window.opener && window.opener.postMessage('authorization:github:success:${JSON.stringify(tokenData)}', "${url.origin}");
-                    window.close();
-                })();
-            </script>
+                    // Redirect to admin
+                    window.location.href = '/admin#access_token=${tokenData.access_token}&provider=github&token_type=bearer';
+                </script>
+            </body>
+            </html>
         `;
 
-		return new Response(script, {
-			headers: {
-				'Content-Type': 'text/html'
-			}
+		return new Response(html, {
+			headers: { 'Content-Type': 'text/html' }
 		});
 	} catch (error) {
 		console.error('Auth error:', error);
 		return json({ error: 'Authentication failed' }, { status: 500 });
 	}
-}
-
-export async function POST({ request }) {
-	// Handle preflight and other POST requests
-	return json({ message: 'Auth endpoint active' });
 }

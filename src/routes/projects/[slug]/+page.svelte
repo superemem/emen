@@ -25,7 +25,7 @@
 	</a>
 
 	<header class="mb-8">
-		<h1 class="text-4xl font-bold text-slate-900 md:text-5xl">
+		<h1 class="text-4xl font-bold text-slate-900 md:text-5xl dark:text-white">
 			{meta.title}
 		</h1>
 		<p class="mt-2 text-lg text-slate-500">{meta.year}</p>

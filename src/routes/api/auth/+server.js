@@ -2,14 +2,30 @@
 import { json } from '@sveltejs/kit';
 
 const CLIENT_ID = 'Ov23liJGP9rgsb1jftEl';
-const CLIENT_SECRET = 'YOUR_GITHUB_CLIENT_SECRET'; // Ambil dari GitHub OAuth App
+const CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 
 export async function GET({ url, request }) {
 	const code = url.searchParams.get('code');
 	const state = url.searchParams.get('state');
 
+	// Debug log
+	console.log('Auth endpoint called with:', {
+		code: code,
+		state: state,
+		fullUrl: url.toString(),
+		searchParams: Array.from(url.searchParams.entries())
+	});
+
 	if (!code) {
-		return json({ error: 'No authorization code provided' }, { status: 400 });
+		// Redirect to GitHub OAuth if no code
+		const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent('https://www.emen.web.id/api/auth')}&scope=repo&state=${Date.now()}`;
+
+		return new Response(null, {
+			status: 302,
+			headers: {
+				Location: githubAuthUrl
+			}
+		});
 	}
 
 	try {

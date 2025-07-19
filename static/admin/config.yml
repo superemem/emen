@@ -1,0 +1,28 @@
+# static/admin/config.yml
+backend:
+  name: github
+  repo: superemem/emen # Ganti dengan username dan nama repo GitHub kamu
+  branch: main # Ganti dengan nama branch utama repo kamu
+  auth_type: implicit
+  app_id: Ov23liJGP9rgsb1jftEl # Ganti dengan Client ID dari aplikasi GitHub OAuth-mu
+  # auth_endpoint: https://github.com/login/oauth/authorize # Hapus baris ini sepenuhnya
+  base_url: http://localhost:5174/admin/index.html # URL LENGKAP dari dashboard admin Decap CMS Anda
+  auth_proxy_url: http://localhost:8080/auth/github # PERBAIKAN: Ini adalah URL endpoint proxy untuk memulai OAuth
+
+media_folder: "static/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "lib/content/blog"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string", required: true}
+      - {label: "Description", name: "description", widget: "string", required: true}
+      - {label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: true}
+      - {label: "Author", name: "author", widget: "string", required: true, default: "Emen"}
+      - {label: "Tags", name: "tags", widget: "list", default: ["general"], required: false}
+      - {label: "Featured Image", name: "image", widget: "image", required: false}
+      - {label: "Body", name: "body", widget: "markdown", required: true}

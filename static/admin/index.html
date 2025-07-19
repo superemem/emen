@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Content Manager</title>
+</head>
+<body>
+  <!-- Include the script that builds the page and powers Decap CMS -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  
+  <!-- Debug script to check if config.yml is accessible -->
+  <script>
+    console.log('Checking config.yml accessibility...');
+    fetch('/admin/config.yml')
+      .then(response => {
+        console.log('Config.yml response status:', response.status);
+        return response.text();
+      })
+      .then(text => {
+        console.log('Config.yml content:', text);
+      })
+      .catch(error => {
+        console.error('Error loading config.yml:', error);
+      });
+  </script>
+</body>
+</html>

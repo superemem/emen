@@ -1,18 +1,11 @@
 // src/routes/api/auth/+server.js
 import { error } from '@sveltejs/kit';
-import { env } from '$env/dynamic/private'; // Untuk mengakses environment variables server-side
+// PERBAIKAN: Pastikan ini diimpor dengan benar untuk mengakses environment variables
+import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from '$env/static/private';
 
-// Ambil environment variables
-const GITHUB_CLIENT_ID = env.GITHUB_CLIENT_ID;
-const GITHUB_CLIENT_SECRET = env.env.GITHUB_CLIENT_SECRET; // Perbaikan: env.GITHUB_CLIENT_SECRET
-
-// Pastikan environment variables ada
-if (!GITHUB_CLIENT_ID || !GITHUB_CLIENT_SECRET) {
-	console.error(
-		'ERROR: GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET must be set in environment variables.'
-	);
-	throw error(500, 'Server configuration error: Missing GitHub credentials.');
-}
+// PERBAIKAN: Tidak perlu lagi pengecekan if (!GITHUB_CLIENT_ID || !GITHUB_CLIENT_SECRET) di sini
+// karena $env/static/private akan memastikan variabel ini ada saat build
+// dan akan throw error lebih awal jika tidak ada.
 
 /**
  * @type {import('./$types').RequestHandler}

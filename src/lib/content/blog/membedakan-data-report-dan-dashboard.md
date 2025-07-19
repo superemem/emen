@@ -1,6 +1,6 @@
 ---
 title: 'Membedakan Data, Report dan Dashboard'
-date: '2024-07-19'
+date: '2025-07-19'
 description: 'Kalau kalian masuk ke dunia kerja, salah satu yang tidak asing di teling adalah istilah data, report dan dashboard. Biasanya ini berhubungan dengan yang namanya reporting.'
 author: 'Emen'
 tags: ['data visualization', 'looker studio', 'powerbi', 'report', 'dashboard']

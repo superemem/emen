@@ -1,21 +1,19 @@
 # static/admin/config.yml
 backend:
   name: github
-  repo: superemem/emen # Ganti dengan username dan nama repo GitHub kamu
-  branch: main # Ganti dengan nama branch utama repo kamu
+  repo: superemem/emen # GANTI INI: username_github/nama_repo_kamu
+  branch: main
   auth_type: implicit
-  app_id: Ov23liJGP9rgsb1jftEl # Ganti dengan Client ID dari aplikasi GitHub OAuth-mu
-  # auth_endpoint: https://github.com/login/oauth/authorize # Hapus baris ini sepenuhnya
-  base_url: http://localhost:5174/admin/index.html # URL LENGKAP dari dashboard admin Decap CMS Anda
-  auth_proxy_url: http://localhost:8080/auth/github # PERBAIKAN: Ini adalah URL endpoint proxy untuk memulai OAuth
+  app_id: Ov23liJGP9rgsb1jftEl # GANTI INI: Client ID dari aplikasi GitHub OAuth-mu
+  auth_proxy_url: https://www.emen.web.id/api/auth # URL ke SvelteKit API endpoint kita
 
-media_folder: "static/uploads"
-public_folder: "/uploads"
+media_folder: static/uploads # Pastikan folder ini ada di root SvelteKit Anda
+public_folder: /uploads
 
 collections:
   - name: "blog"
     label: "Blog Posts"
-    folder: "lib/content/blog"
+    folder: "src/lib/content/blog" # Pastikan path ini benar
     create: true
     slug: "{{slug}}"
     fields:

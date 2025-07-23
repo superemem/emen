@@ -1,139 +1,113 @@
 <script>
-	import { onMount } from 'svelte';
-	import { supabase } from '$lib/supabaseClient.js';
-
 	export let slug;
 
-	// 1. Definisikan emoji yang diizinkan untuk reaksi
+	// List emoji yang bisa dipakai
 	const allowedEmojis = ['❤️', '👍', '😂', '🤯', '🤔'];
 
-	// State untuk menyimpan jumlah: { '❤️': 10, '👍': 5, '😂': 0, ... }
+	// State & helpers
+	let storageKey = '';
 	let reactionCounts = {};
 	let hasReacted = false;
-	let isLoading = true;
 
-	const storageKey = `reacted_${slug}`;
-
-	onMount(async () => {
-		// Cek localStorage apakah user sudah pernah bereaksi di post ini
-		if (localStorage.getItem(storageKey)) {
-			hasReacted = true;
+	// Supaya hanya akses localStorage di browser, bukan SSR!
+	function safelyGetLocalStorage(key) {
+		if (typeof window !== 'undefined') {
+			return localStorage.getItem(key);
 		}
-
-		// Ambil data reaksi dari Supabase
-		const { data } = await supabase.from('reactions').select('emoji, count').eq('slug', slug);
-
-		// Inisialisasi hitungan awal untuk semua emoji yang diizinkan
-		const counts = {};
-		for (const emoji of allowedEmojis) {
-			counts[emoji] = 0; // Set semua ke 0 dulu
+		return null;
+	}
+	function safelySetLocalStorage(key, value) {
+		if (typeof window !== 'undefined') {
+			localStorage.setItem(key, value);
 		}
+	}
 
-		// Update hitungan berdasarkan data dari Supabase
-		if (data) {
-			for (const item of data) {
-				// Pastikan hanya emoji yang ada di `allowedEmojis` yang dihitung
-				if (counts.hasOwnProperty(item.emoji)) {
-					counts[item.emoji] = item.count;
-				}
+	// Reaktif jika slug berubah
+	$: storageKey = `reacted_${slug}`;
+
+	// INIT state dari localStorage tiap slug berubah
+	$: {
+		// Init kosong dulu
+		reactionCounts = {};
+		for (const emoji of allowedEmojis) reactionCounts[emoji] = 0;
+
+		const saved = safelyGetLocalStorage(storageKey);
+		if (saved) {
+			try {
+				reactionCounts = JSON.parse(saved);
+				hasReacted = true;
+			} catch (err) {
+				hasReacted = false;
+				// kalau error parse, clear key-nya biar ga error lagi
+				safelySetLocalStorage(storageKey, JSON.stringify(reactionCounts));
 			}
-		}
-
-		reactionCounts = counts;
-		isLoading = false;
-	});
-
-	// GANTI FUNGSI INI
-	async function handleReactionClick(emoji) {
-		console.log('React:', { slug, emoji });
-		if (hasReacted || isLoading) return;
-		hasReacted = true;
-		localStorage.setItem(storageKey, 'true');
-		reactionCounts = { ...reactionCounts, [emoji]: reactionCounts[emoji] + 1 };
-
-		const { error, data } = await supabase.rpc('react_emoji', { p_slug: slug, p_emoji: emoji });
-		if (error) {
-			console.error('Gagal mengirim reaksi:', error);
-			reactionCounts = { ...reactionCounts, [emoji]: reactionCounts[emoji] - 1 };
-			hasReacted = false;
-			localStorage.removeItem(storageKey);
-			alert('Gagal react: ' + error.message);
 		} else {
-			console.log('RPC sukses:', data);
+			hasReacted = false;
 		}
+	}
+
+	function handleReactionClick(emoji) {
+		if (hasReacted) return;
+		reactionCounts = { ...reactionCounts, [emoji]: reactionCounts[emoji] + 1 };
+		hasReacted = true;
+		safelySetLocalStorage(storageKey, JSON.stringify(reactionCounts));
 	}
 </script>
 
-<div class="reaction-wrapper">
-	{#if isLoading}
-		<p class="text-slate-500 dark:text-slate-400">Memuat reaksi...</p>
-	{:else}
+<div class="reaction-wrapper" style="margin-top:2rem">
+	{#if !hasReacted}
 		{#each allowedEmojis as emoji}
 			<button
 				class="reaction-item"
 				on:click={() => handleReactionClick(emoji)}
-				disabled={hasReacted}
-				title={hasReacted ? 'Anda sudah memberi reaksi' : `Beri reaksi ${emoji}`}
+				title={`Beri reaksi ${emoji}`}
 			>
 				<span class="emoji-char">{emoji}</span>
 				<span class="count">{reactionCounts[emoji]}</span>
 			</button>
 		{/each}
+	{:else}
+		<p class="mb-2 text-sm text-slate-500">Terima kasih sudah memberi reaksi!</p>
+		<div>
+			{#each allowedEmojis as emoji}
+				<span style="margin-right:1rem">
+					{emoji} <small>({reactionCounts[emoji]})</small>
+				</span>
+			{/each}
+		</div>
 	{/if}
 </div>
 
 <style>
 	.reaction-wrapper {
 		display: flex;
-		justify-content: center;
+		flex-direction: column;
 		align-items: center;
-		gap: 0.75rem; /* 12px */
-		flex-wrap: wrap;
+		gap: 0.75rem;
 	}
 	.reaction-item {
 		display: inline-flex;
 		align-items: center;
 		gap: 0.4rem;
-		background-color: #f1f5f9; /* slate-100 */
-		border: 1px solid #e2e8f0; /* slate-200 */
+		background-color: #f1f5f9;
+		border: 1px solid #e2e8f0;
 		padding: 6px 14px;
 		border-radius: 20px;
 		font-family: sans-serif;
 		transition: all 0.2s ease-in-out;
+		margin: 0 0.5rem;
 	}
-	.dark .reaction-item {
-		background-color: #334155; /* slate-700 */
-		border-color: #475569; /* slate-600 */
-	}
-
-	/* Styling saat belum di-disable */
-	.reaction-item:not(:disabled) {
-		cursor: pointer;
-	}
-	.reaction-item:not(:disabled):hover {
+	.reaction-item:hover {
 		transform: translateY(-2px) scale(1.05);
-		border-color: #94a3b8; /* slate-400 */
+		border-color: #94a3b8;
 	}
-	.dark .reaction-item:not(:disabled):hover {
-		border-color: #64748b; /* slate-500 */
-	}
-
-	/* Styling saat sudah di-disable (sudah vote) */
-	.reaction-item:disabled {
-		cursor: not-allowed;
-		opacity: 0.8;
-	}
-
 	.emoji-char {
-		font-size: 1.1rem; /* 18px */
+		font-size: 1.1rem;
 		line-height: 1;
 	}
 	.count {
-		font-size: 0.875rem; /* 14px */
+		font-size: 0.875rem;
 		font-weight: 500;
-		color: #475569; /* slate-600 */
-	}
-	.dark .count {
-		color: #cbd5e1; /* slate-300 */
+		color: #475569;
 	}
 </style>

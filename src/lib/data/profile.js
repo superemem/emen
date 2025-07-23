@@ -6,7 +6,7 @@ export const experienceData = [
 		title: 'PT Azzwars Wangi Abadi',
 		jobTitle: 'Head of Creative Marketing',
 		period: 'Nov 2022 - Sekarang',
-		details: `<p>Mengelola aktivitas Devisi Creative Marketing PT. Azzwars Wangi Abadi, untuk melakuan pengembangan strategi pemasaran dan kampanye iklan yang efektif, dan pengelolaan aktivasi digital.</p>
+		details: `<p>Mengelola aktivitas Devisi Creative Marketing PT. Azzwars Wangi Abadi, untuk melakuan pengembangan strategi pemasaran dan kampanye iklan yang efektif, dan pengelolaan aktivasi digital.</>
                <ul>
                 <li>Mendesign ulang kemasan produk Travel Size bersama tim graphic designer.</li>
                 <li>Membuat dan menjalankan strategi konten untuk akun @AzzwarsPerfumeOfficial, @AzwaPerfumeOfficial. @AzwaryPerfume dan @HunnyFemme.</li>

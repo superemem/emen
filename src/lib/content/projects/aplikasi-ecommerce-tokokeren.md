@@ -1,5 +1,5 @@
 ---
-title: 'Aplikasi E-Commerce TokoKeren"'
+title: 'Lokasi Container Sampah di Kota Padang'
 year: 2023
 tags: ['Next.js', 'React', 'Stripe']
 image: '/images/placeholder-project-2.png'

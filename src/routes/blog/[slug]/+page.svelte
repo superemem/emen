@@ -1,8 +1,7 @@
-<!-- File: src/routes/blog/[slug]/+page.svelte -->
-
 <script>
 	import { ArrowLeft, Clock } from '@lucide/svelte';
 	import Seo from '$lib/components/Seo.svelte';
+	import Reactions from '$lib/components/Reactions.svelte'; // <-- BAGIAN 1: DITAMBAHKAN
 
 	/** @type {import('./$types').PageData} */
 	export let data;
@@ -59,12 +58,16 @@
 			{/if}
 		</header>
 
-		<!--
-      Class 'prose' akan mengambil styling otomatis dari app.css yang sudah kita atur.
-      Tidak perlu 'dark:prose-invert' lagi.
-    -->
 		<div class="prose prose-lg mt-8 max-w-none">
 			<svelte:component this={content} />
+		</div>
+
+		<hr class="my-12" />
+		<div class="text-center">
+			<h3 class="mb-4 text-xl font-bold text-slate-800 dark:text-slate-100">
+				Bagaimana perasaanmu setelah membaca ini?
+			</h3>
+			<Reactions slug={data.slug} />
 		</div>
 	</article>
 </div>

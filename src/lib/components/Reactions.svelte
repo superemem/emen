@@ -1,89 +1,103 @@
 <script>
+	import { supabase } from '$lib/supabaseClient.js'; // Atur path sesuai projectmu
 	export let slug;
 
-	// List emoji yang bisa dipakai
+	// Daftar emoji yang boleh direaksi user
 	const allowedEmojis = ['❤️', '👍', '😂', '🤯', '🤔'];
-
-	// State & helpers
-	let storageKey = '';
 	let reactionCounts = {};
+	let isLoading = true;
 	let hasReacted = false;
-
-	// Supaya hanya akses localStorage di browser, bukan SSR!
-	function safelyGetLocalStorage(key) {
-		if (typeof window !== 'undefined') {
-			return localStorage.getItem(key);
-		}
-		return null;
-	}
-	function safelySetLocalStorage(key, value) {
-		if (typeof window !== 'undefined') {
-			localStorage.setItem(key, value);
-		}
-	}
-
-	// Reaktif jika slug berubah
 	$: storageKey = `reacted_${slug}`;
 
-	// INIT state dari localStorage tiap slug berubah
-	$: {
-		// Init kosong dulu
-		reactionCounts = {};
-		for (const emoji of allowedEmojis) reactionCounts[emoji] = 0;
+	// Ambil data reaksi ketika slug berubah
+	$: if (slug) fetchReactions();
 
-		const saved = safelyGetLocalStorage(storageKey);
-		if (saved) {
-			try {
-				reactionCounts = JSON.parse(saved);
-				hasReacted = true;
-			} catch (err) {
-				hasReacted = false;
-				// kalau error parse, clear key-nya biar ga error lagi
-				safelySetLocalStorage(storageKey, JSON.stringify(reactionCounts));
-			}
-		} else {
-			hasReacted = false;
+	$: console.log('[DEBUG] Reactions slug:', slug);
+
+	async function fetchReactions() {
+		isLoading = true;
+		console.log('[DEBUG] Mulai fetch reaction', slug);
+		const base = {};
+		for (const emoji of allowedEmojis) base[emoji] = 0;
+		reactionCounts = base;
+
+		const { data, error } = await supabase
+			.from('reactions')
+			.select('emoji, count')
+			.eq('slug', slug);
+
+		console.log('[DEBUG] Hasil query:', { data, error });
+
+		if (error) {
+			console.error('[DEBUG] ERROR fetchReactions:', error);
+			isLoading = false;
+			return;
 		}
+
+		if (data) {
+			for (const item of data) {
+				if (reactionCounts.hasOwnProperty(item.emoji)) {
+					reactionCounts[item.emoji] = item.count;
+				}
+			}
+		}
+		isLoading = false;
+		console.log('[DEBUG] isLoading after fetch:', isLoading);
 	}
 
-	function handleReactionClick(emoji) {
-		if (hasReacted) return;
-		reactionCounts = { ...reactionCounts, [emoji]: reactionCounts[emoji] + 1 };
+	async function handleReactionClick(emoji) {
+		if (hasReacted || isLoading) return;
+
 		hasReacted = true;
-		safelySetLocalStorage(storageKey, JSON.stringify(reactionCounts));
+		if (typeof window !== 'undefined') localStorage.setItem(storageKey, 'true');
+		reactionCounts = { ...reactionCounts, [emoji]: reactionCounts[emoji] + 1 };
+
+		// Kirim increment ke Supabase pakai RPC function
+		const { error } = await supabase.rpc('increment_reaction', {
+			p_slug: slug,
+			p_emoji: emoji
+		});
+
+		if (error) {
+			reactionCounts = { ...reactionCounts, [emoji]: reactionCounts[emoji] - 1 };
+			hasReacted = false;
+			if (typeof window !== 'undefined') localStorage.removeItem(storageKey);
+			alert('Gagal mengirim reaksi: ' + error.message);
+		} else {
+			// Fetch ulang biar count pasti akurat (opsional)
+			fetchReactions();
+		}
 	}
 </script>
 
 <div class="reaction-wrapper" style="margin-top:2rem">
-	{#if !hasReacted}
+	{#if isLoading}
+		<p class="text-slate-500 dark:text-slate-400">Memuat reaksi...</p>
+	{:else}
 		{#each allowedEmojis as emoji}
 			<button
 				class="reaction-item"
 				on:click={() => handleReactionClick(emoji)}
-				title={`Beri reaksi ${emoji}`}
+				disabled={hasReacted}
+				title={hasReacted ? 'Anda sudah memberi reaksi' : `Beri reaksi ${emoji}`}
 			>
 				<span class="emoji-char">{emoji}</span>
 				<span class="count">{reactionCounts[emoji]}</span>
 			</button>
 		{/each}
-	{:else}
-		<p class="mb-2 text-sm text-slate-500">Terima kasih sudah memberi reaksi!</p>
-		<div>
-			{#each allowedEmojis as emoji}
-				<span style="margin-right:1rem">
-					{emoji} <small>({reactionCounts[emoji]})</small>
-				</span>
-			{/each}
-		</div>
+		{#if hasReacted}
+			<p class="mt-2 text-sm text-slate-500">Terima kasih sudah memberi reaksi!</p>
+		{/if}
 	{/if}
 </div>
 
 <style>
 	.reaction-wrapper {
 		display: flex;
-		flex-direction: column;
+		flex-wrap: wrap;
 		align-items: center;
 		gap: 0.75rem;
+		justify-content: center;
 	}
 	.reaction-item {
 		display: inline-flex;
@@ -94,12 +108,18 @@
 		padding: 6px 14px;
 		border-radius: 20px;
 		font-family: sans-serif;
-		transition: all 0.2s ease-in-out;
-		margin: 0 0.5rem;
+		transition: all 0.2s;
+		font-size: 1rem;
 	}
-	.reaction-item:hover {
+	.reaction-item:not(:disabled):hover {
 		transform: translateY(-2px) scale(1.05);
 		border-color: #94a3b8;
+		background-color: #e0e7ef;
+		cursor: pointer;
+	}
+	.reaction-item:disabled {
+		cursor: not-allowed;
+		opacity: 0.75;
 	}
 	.emoji-char {
 		font-size: 1.1rem;

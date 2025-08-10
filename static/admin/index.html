@@ -85,17 +85,42 @@
 
         if (isAuthSuccess && token) {
           console.log('🎉 Auth successful with token:', token ? 'Present' : 'Missing');
-          console.log('🔄 Will reload page in 2 seconds...');
+          
+          // Try to store token in localStorage for Decap CMS
+          try {
+            console.log('💾 Attempting to store auth token...');
+            
+            // Store in different formats that Decap might expect
+            localStorage.setItem('netlify-cms-user', JSON.stringify({
+              token: token,
+              backendName: 'github'
+            }));
+            
+            localStorage.setItem('decap-cms-user', JSON.stringify({
+              token: token,
+              backendName: 'github'
+            }));
+            
+            // Also try the raw token
+            localStorage.setItem('gh-token', token);
+            
+            console.log('✅ Token stored in localStorage');
+          } catch (e) {
+            console.error('❌ Failed to store token:', e);
+          }
+          
+          console.log('🔄 Will reload page in 1 second...');
           setTimeout(() => {
             console.log('🔄 Reloading page now');
-            window.location.reload();
-          }, 2000);
+            window.location.reload(true);
+          }, 1000);
+          
         } else if (isAuthSuccess) {
           console.log('⚠️ Auth message received but no token found');
           console.log('🔄 Will still try to reload...');
           setTimeout(() => {
-            window.location.reload();
-          }, 2000);
+            window.location.reload(true);
+          }, 1000);
         }
       }
     });

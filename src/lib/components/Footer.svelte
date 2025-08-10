@@ -12,7 +12,7 @@
 		</p>
 		<div class="flex items-center gap-4">
 			<a
-				href="https://linkedin.com/in/username-lo"
+				href="https://linkedin.com/in/emenn"
 				target="_blank"
 				rel="noopener noreferrer"
 				aria-label="LinkedIn"
@@ -21,7 +21,7 @@
 				<Linkedin size={20} />
 			</a>
 			<a
-				href="https://instagram.com/username-lo"
+				href="https://instagram.com/super.emen"
 				target="_blank"
 				rel="noopener noreferrer"
 				aria-label="Instagram"

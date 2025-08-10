@@ -18,15 +18,31 @@ export const experienceData = [
 	},
 	{
 		title: 'Haluan Media Group',
-		jobTitle: 'Digital Manager',
+		jobTitle: 'Junior Editor → SEO Lead → Digital Manager',
 		period: 'Sept 2020 - Sept 2021',
-		details: `<p>Membantu tim dalam pengembangan fitur-fitur baru untuk produk utama perusahaan menggunakan React dan Next.js. Terlibat dalam proses slicing desain dari Figma ke kode yang presisi.</p>`
+		details: `<ul>
+      <li><b>Junior Editor:</b> menyunting naskah reporter & publikasi via CMS sesuai pedoman editorial.</li>
+      <li><b>SEO Lead:</b> kelola SEO harian; riset tren (Google Trends), kurasi topik & kalender; optimasi on-page (judul, meta, struktur, internal link).</li>
+      <li>Monitoring KPI <i>page view</i> harian & kualitas konten; koordinasi lintas tim untuk eksekusi cepat.</li>
+      <li><b>Digital Manager:</b> pimpin operasional situs & strategi konten/SEO; briefing harian newsroom & tim non-berita; evaluasi performa konten.</li>
+      <li>Kolaborasi dengan tim produk/tech untuk perbaikan UX dan kecepatan situs.</li>
+      <li><b>Inisiatif:</b> susun SOP SEO harian & workflow agar newsroom lebih responsif terhadap topik trending.</li>
+    </ul>`
 	},
 	{
 		title: 'infoSumbar',
-		jobTitle: 'Co-Founder',
+		jobTitle: 'Co-Founder & Ops/Business Lead',
 		period: '2012 - 2020',
-		details: `<p>Membantu tim dalam pengembangan fitur-fitur baru untuk produk utama perusahaan menggunakan React dan Next.js. Terlibat dalam proses slicing desain dari Figma ke kode yang presisi.</p>`
+		details: `<p>Co-founder (non-sole). Memulai dari pengelolaan Twitter, memperluas ke Website (WordPress) & Instagram, lalu memimpin operasional dan pengembangan bisnis end-to-end.</p>
+    <ul>
+      <li>Membangun & mengembangkan kanal: Twitter → Website (WordPress) → Instagram; merancang strategi konten & program kanal.</li>
+      <li>Mengelola operasional editorial: kalender, produksi & publikasi konten, pelaporan performa.</li>
+      <li>Mengembangkan lini pendapatan: <i>rate card</i>, paket kampanye, proposal/quotation, kontrak kerja sama, hingga proses billing.</li>
+      <li>Merancang alur manajemen iklan yang repeatable (brief → rencana konten → approval → eksekusi → reporting).</li>
+      <li>Business development & client service: prospek, negosiasi, dan relationship brand/instansi.</li>
+      <li>People & office ops: rekrut, latih, dan kelola tim dari 0 → 8 orang; membuka kantor & menyusun SOP kerja.</li>
+      <li>Keuangan & tata kelola: budgeting dan cashflow.</li>
+    </ul>`
 	}
 ];
 

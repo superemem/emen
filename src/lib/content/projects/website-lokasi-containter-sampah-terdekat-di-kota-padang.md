@@ -2,7 +2,7 @@
 title: 'Lokasi Container Sampah di Kota Padang'
 year: 2023
 tags: ['Next.js', 'React', 'Stripe']
-image: '/images/placeholder-project-2.png'
+image: '/uploads/pdgbin.webp'
 ---
 
 "TokoKeren" adalah sebuah prototipe platform e-commerce yang modern. Proyek ini mencakup semua alur dasar dari sebuah toko online.

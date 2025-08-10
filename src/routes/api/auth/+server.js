@@ -6,18 +6,16 @@ const CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 
 export async function GET({ url }) {
 	const code = url.searchParams.get('code');
-	// Ambil state dari Decap (saat !code) atau dari callback GitHub (saat ada code)
 	const state = url.searchParams.get('state') || '';
 	const redirectUri = `${url.origin}/api/auth`;
 
 	if (!code) {
-		// >>> KUNCI: teruskan state dari Decap ke GitHub, JANGAN bikin baru
 		const authUrl =
 			`https://github.com/login/oauth/authorize?` +
 			new URLSearchParams({
 				client_id: CLIENT_ID,
 				redirect_uri: redirectUri,
-				scope: 'repo', // pakai 'public_repo' jika repo publik
+				scope: 'repo',
 				state: state || cryptoRandom()
 			});
 		return new Response(null, { status: 302, headers: { Location: authUrl } });
@@ -40,34 +38,83 @@ export async function GET({ url }) {
 		const accessToken = tokenData.access_token || '';
 		const tokenType = tokenData.token_type || 'bearer';
 
-		const html = `<!doctype html><html><body>
-      <p>Authorization successful! You can close this window.</p>
+		const html = `<!doctype html><html><head><title>Authorization Success</title></head><body>
+      <p>Authorization successful! Closing window...</p>
       <script>
         (function () {
           var token = ${JSON.stringify(accessToken)};
           var provider = 'github';
           var state = ${JSON.stringify(state)};
           var tokenType = ${JSON.stringify(tokenType)};
-          // Kirim tepat ke origin opener
-          var origin = (function () {
-            try { return new URL(document.referrer).origin; } catch (e) { return window.location.origin; }
-          })();
-
-          // Legacy string (Decap lama)
-          try { window.opener && window.opener.postMessage('authorization:' + provider + ':success:' + token, origin); } catch (e) {}
-
-          // Modern object (Decap baru) - WAJIB sertakan state
+          
+          // Get the correct origin
+          var origin = window.location.origin;
+          var referrerOrigin = '';
           try {
-            window.opener && window.opener.postMessage({
-              type: 'authorization:' + provider + ':success',
-              token: token,
-              token_type: tokenType,
-              provider: provider,
-              state: state
-            }, origin);
+            referrerOrigin = new URL(document.referrer).origin;
           } catch (e) {}
+          
+          var targetOrigin = referrerOrigin || origin;
+          
+          console.log('Sending auth success message to:', targetOrigin);
+          console.log('Token:', token);
+          console.log('State:', state);
 
-          try { if (window.opener) window.close(); else window.location.href = origin + '/admin/index.html'; } catch (e) { window.location.href = origin + '/admin/index.html'; }
+          function sendMessage() {
+            if (window.opener) {
+              // Send multiple message formats for compatibility
+              
+              // Format 1: Legacy string format
+              try {
+                window.opener.postMessage(
+                  'authorization:' + provider + ':success:' + token,
+                  targetOrigin
+                );
+              } catch (e) {
+                console.error('Legacy message failed:', e);
+              }
+
+              // Format 2: Modern object format
+              try {
+                window.opener.postMessage({
+                  type: 'authorization:' + provider + ':success',
+                  token: token,
+                  token_type: tokenType,
+                  provider: provider,
+                  state: state
+                }, targetOrigin);
+              } catch (e) {
+                console.error('Modern message failed:', e);
+              }
+
+              // Format 3: Alternative object format
+              try {
+                window.opener.postMessage({
+                  type: 'authorization:github:success',
+                  data: {
+                    token: token,
+                    provider: provider,
+                    state: state
+                  }
+                }, targetOrigin);
+              } catch (e) {
+                console.error('Alt message failed:', e);
+              }
+
+              // Close the popup after a short delay
+              setTimeout(function() {
+                window.close();
+              }, 1000);
+            } else {
+              // Fallback: redirect to admin
+              console.log('No opener found, redirecting to admin');
+              window.location.href = origin + '/admin/';
+            }
+          }
+
+          // Send message immediately and also after a short delay
+          sendMessage();
+          setTimeout(sendMessage, 100);
         })();
       </script>
     </body></html>`;

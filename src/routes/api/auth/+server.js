@@ -75,7 +75,7 @@ export async function GET({ url, request }) {
                             window.close();
                         } else {
                             // Fallback: redirect to admin
-                            window.location.href = '${url.origin}/admin#/';
+                            window.location.href = '${url.origin}/admin/index.html';
                         }
                     })();
                 </script>

@@ -6,18 +6,21 @@ const CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 
 export async function GET({ url }) {
 	const code = url.searchParams.get('code');
-	const redirectUri = `${url.origin}/api/auth`;
+	const state = url.searchParams.get('state') || ''; // <-- tangkap state dari GitHub
+	const redirectUri = `${url.origin}/api/auth`; // <-- dinamis (dev/prod)
 
 	if (!code) {
-		const githubAuthUrl =
+		// pass state yang diset Decap (Decap akan set & pakai ini)
+		const nextState = String(Date.now());
+		const authUrl =
 			`https://github.com/login/oauth/authorize?` +
 			new URLSearchParams({
 				client_id: CLIENT_ID,
 				redirect_uri: redirectUri,
 				scope: 'repo', // atau 'public_repo' kalau repo publik
-				state: String(Date.now())
+				state: nextState
 			});
-		return new Response(null, { status: 302, headers: { Location: githubAuthUrl } });
+		return new Response(null, { status: 302, headers: { Location: authUrl } });
 	}
 
 	try {
@@ -34,19 +37,46 @@ export async function GET({ url }) {
 		const tokenData = await tokenRes.json();
 		if (tokenData.error) return json({ error: tokenData.error }, { status: 400 });
 
-		const accessToken = tokenData.access_token;
+		const accessToken = tokenData.access_token || '';
+		const tokenType = tokenData.token_type || 'bearer';
+
+		// Kirim ke origin tab admin (bukan '*') biar aman dan pasti diterima
+		const targetOrigin = (() => {
+			try {
+				// document.referrer akan mengarah ke /admin (tab opener)
+				const r = document?.referrer || '';
+				return r ? new URL(r).origin : url.origin;
+			} catch {
+				return url.origin;
+			}
+		})();
 
 		const html = `<!doctype html><html><body>
       <p>Authorization successful! You can close this window.</p>
       <script>
         (function () {
           var token = ${JSON.stringify(accessToken)};
-          // Legacy string format (Decap lama)
-          try { window.opener && window.opener.postMessage('authorization:github:success:' + token, '*'); } catch (e) {}
-          // Object format (Decap baru)
-          try { window.opener && window.opener.postMessage({ type: 'authorization:github:success', token: token, provider: 'github' }, '*'); } catch (e) {}
-          // Fallback terakhir
-          try { if (window.opener) window.close(); else window.location.href = '${url.origin}/admin/index.html'; } catch (e) { window.location.href = '${url.origin}/admin/index.html'; }
+          var state = ${JSON.stringify(state)};
+          var provider = 'github';
+          var tokenType = ${JSON.stringify(tokenType)};
+          var origin = ${JSON.stringify(targetOrigin)};
+
+          // Legacy format (Decap lama)
+          try { window.opener && window.opener.postMessage('authorization:' + provider + ':success:' + token, origin); } catch (e) {}
+
+          // Modern format (Decap baru) — sertakan state
+          try {
+            window.opener && window.opener.postMessage({
+              type: 'authorization:' + provider + ':success',
+              token: token,
+              token_type: tokenType,
+              provider: provider,
+              state: state
+            }, origin);
+          } catch (e) {}
+
+          // Tutup popup / fallback redirect
+          try { if (window.opener) window.close(); else window.location.href = origin + '/admin/index.html'; } catch (e) { window.location.href = origin + '/admin/index.html'; }
         })();
       </script>
     </body></html>`;

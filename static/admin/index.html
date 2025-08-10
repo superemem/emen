@@ -3,10 +3,89 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
   <title>Admin Dashboard</title>
+  <style>
+    /* Simple loading indicator */
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      color: #666;
+    }
+    .loading.hidden { display: none; }
+  </style>
 </head>
 <body>
+  <div id="loading" class="loading">
+    <p>Loading CMS...</p>
+  </div>
+  
   <!-- Script Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.1.2/dist/decap-cms.js"></script>
+  
+  <script>
+    console.log('Admin page loaded');
+    
+    // Hide loading indicator once CMS is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(() => {
+        const loading = document.getElementById('loading');
+        if (loading) loading.classList.add('hidden');
+      }, 2000);
+    });
+
+    // Debug: Listen for auth messages
+    window.addEventListener('message', function(event) {
+      console.log('Admin received message:', event.data, 'from origin:', event.origin);
+      
+      // Check if it's an auth success message
+      if (event.data) {
+        const data = event.data;
+        
+        // Handle string format: "authorization:github:success:token"
+        if (typeof data === 'string' && data.includes('authorization:github:success')) {
+          console.log('Received GitHub auth success (string format)');
+          // Force CMS to recognize the auth
+          setTimeout(() => {
+            console.log('Reloading to refresh CMS state');
+            window.location.reload();
+          }, 500);
+        }
+        
+        // Handle object format
+        if (typeof data === 'object' && data.type && data.type.includes('authorization:github:success')) {
+          console.log('Received GitHub auth success (object format)');
+          // Force CMS to recognize the auth
+          setTimeout(() => {
+            console.log('Reloading to refresh CMS state');
+            window.location.reload();
+          }, 500);
+        }
+      }
+    });
+
+    // Optional: Manual CMS initialization with error handling
+    document.addEventListener('DOMContentLoaded', function() {
+      try {
+        console.log('Initializing CMS...');
+        // CMS should auto-initialize, but we can add manual init if needed
+        // CMS.init();
+      } catch (error) {
+        console.error('CMS initialization error:', error);
+      }
+    });
+
+    // Debug: Check if CMS object is available
+    setTimeout(() => {
+      if (typeof CMS !== 'undefined') {
+        console.log('CMS object is available');
+      } else {
+        console.log('CMS object not found');
+      }
+    }, 1000);
+  </script>
 </body>
 </html>

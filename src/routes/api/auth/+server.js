@@ -6,19 +6,19 @@ const CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 
 export async function GET({ url }) {
 	const code = url.searchParams.get('code');
-	const state = url.searchParams.get('state') || ''; // <-- tangkap state dari GitHub
-	const redirectUri = `${url.origin}/api/auth`; // <-- dinamis (dev/prod)
+	// Ambil state dari Decap (saat !code) atau dari callback GitHub (saat ada code)
+	const state = url.searchParams.get('state') || '';
+	const redirectUri = `${url.origin}/api/auth`;
 
 	if (!code) {
-		// pass state yang diset Decap (Decap akan set & pakai ini)
-		const nextState = String(Date.now());
+		// >>> KUNCI: teruskan state dari Decap ke GitHub, JANGAN bikin baru
 		const authUrl =
 			`https://github.com/login/oauth/authorize?` +
 			new URLSearchParams({
 				client_id: CLIENT_ID,
 				redirect_uri: redirectUri,
-				scope: 'repo', // atau 'public_repo' kalau repo publik
-				state: nextState
+				scope: 'repo', // pakai 'public_repo' jika repo publik
+				state: state || cryptoRandom()
 			});
 		return new Response(null, { status: 302, headers: { Location: authUrl } });
 	}
@@ -40,31 +40,23 @@ export async function GET({ url }) {
 		const accessToken = tokenData.access_token || '';
 		const tokenType = tokenData.token_type || 'bearer';
 
-		// Kirim ke origin tab admin (bukan '*') biar aman dan pasti diterima
-		const targetOrigin = (() => {
-			try {
-				// document.referrer akan mengarah ke /admin (tab opener)
-				const r = document?.referrer || '';
-				return r ? new URL(r).origin : url.origin;
-			} catch {
-				return url.origin;
-			}
-		})();
-
 		const html = `<!doctype html><html><body>
       <p>Authorization successful! You can close this window.</p>
       <script>
         (function () {
           var token = ${JSON.stringify(accessToken)};
-          var state = ${JSON.stringify(state)};
           var provider = 'github';
+          var state = ${JSON.stringify(state)};
           var tokenType = ${JSON.stringify(tokenType)};
-          var origin = ${JSON.stringify(targetOrigin)};
+          // Kirim tepat ke origin opener
+          var origin = (function () {
+            try { return new URL(document.referrer).origin; } catch (e) { return window.location.origin; }
+          })();
 
-          // Legacy format (Decap lama)
+          // Legacy string (Decap lama)
           try { window.opener && window.opener.postMessage('authorization:' + provider + ':success:' + token, origin); } catch (e) {}
 
-          // Modern format (Decap baru) — sertakan state
+          // Modern object (Decap baru) - WAJIB sertakan state
           try {
             window.opener && window.opener.postMessage({
               type: 'authorization:' + provider + ':success',
@@ -75,7 +67,6 @@ export async function GET({ url }) {
             }, origin);
           } catch (e) {}
 
-          // Tutup popup / fallback redirect
           try { if (window.opener) window.close(); else window.location.href = origin + '/admin/index.html'; } catch (e) { window.location.href = origin + '/admin/index.html'; }
         })();
       </script>
@@ -88,6 +79,15 @@ export async function GET({ url }) {
 		console.error('Auth error:', e);
 		return json({ error: 'Authentication failed' }, { status: 500 });
 	}
+}
+
+function cryptoRandom() {
+	if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
+		const arr = new Uint32Array(1);
+		crypto.getRandomValues(arr);
+		return String(arr[0]);
+	}
+	return String(Date.now());
 }
 
 export async function POST() {

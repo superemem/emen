@@ -43,31 +43,59 @@
       console.log('Data:', event.data);
       console.log('Origin:', event.origin);
       console.log('Type of data:', typeof event.data);
+      
+      // Log full object structure
+      if (typeof event.data === 'object' && event.data !== null) {
+        console.log('Object keys:', Object.keys(event.data));
+        console.log('Full object:', JSON.stringify(event.data, null, 2));
+      }
+      
       console.log('========================');
       
       // Check if it's an auth success message
       if (event.data) {
         const data = event.data;
         let isAuthSuccess = false;
+        let token = null;
         
         // Handle string format: "authorization:github:success:token"
         if (typeof data === 'string' && data.includes('authorization:github:success')) {
           console.log('✅ Received GitHub auth success (string format)');
+          const parts = data.split(':');
+          if (parts.length >= 4) {
+            token = parts[3];
+            console.log('Token from string:', token);
+          }
           isAuthSuccess = true;
         }
         
         // Handle object format
         if (typeof data === 'object' && data.type && data.type.includes('authorization:github:success')) {
           console.log('✅ Received GitHub auth success (object format)');
+          token = data.token;
+          console.log('Token from object:', token);
           isAuthSuccess = true;
         }
 
-        if (isAuthSuccess) {
-          console.log('🔄 Will reload page in 1 second...');
+        // Also check for alternative object formats
+        if (typeof data === 'object' && (data.token || data.access_token)) {
+          console.log('✅ Found token in object:', data.token || data.access_token);
+          isAuthSuccess = true;
+        }
+
+        if (isAuthSuccess && token) {
+          console.log('🎉 Auth successful with token:', token ? 'Present' : 'Missing');
+          console.log('🔄 Will reload page in 2 seconds...');
           setTimeout(() => {
             console.log('🔄 Reloading page now');
             window.location.reload();
-          }, 1000);
+          }, 2000);
+        } else if (isAuthSuccess) {
+          console.log('⚠️ Auth message received but no token found');
+          console.log('🔄 Will still try to reload...');
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
         }
       }
     });

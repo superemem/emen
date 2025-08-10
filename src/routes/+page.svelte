@@ -17,7 +17,7 @@
 	<!-- ... (SECTION: HERO / AVATAR & ABOUT tidak berubah) ... -->
 	<section class="flex flex-col items-center text-center">
 		<img
-			src="/emen-avatar.PNG"
+			src="/emen-ala-pejabat.webp"
 			alt="Foto Profil Emen"
 			class="h-32 w-32 rounded-full border-4 border-yellow-200 object-cover shadow-md hover:border-blue-400"
 			loading="lazy"

@@ -1,14 +1,13 @@
 import { error } from '@sveltejs/kit';
 
-// Fungsi untuk menghitung waktu baca
+// Hitung waktu baca ~220 kata/menit
 function calculateReadingTime(text) {
 	const wordsPerMinute = 220;
-	const words = text
+	const words = (text || '')
 		.trim()
 		.split(/\s+/)
-		.filter((word) => word.length > 0);
-	const wordCount = words.length;
-	const minutes = Math.ceil(wordCount / wordsPerMinute);
+		.filter((w) => w.length > 0);
+	const minutes = Math.ceil(words.length / wordsPerMinute);
 	return Math.max(1, minutes);
 }
 
@@ -17,15 +16,13 @@ export async function load({ params }) {
 	try {
 		const post = await import(`../../../lib/content/blog/${params.slug}.md`);
 		const articleText = post.rawContent || '';
-		const readingTime = calculateReadingTime(articleText);
 
 		return {
-			slug: params.slug, // ========== INI PALING PENTING ==========
+			slug: params.slug,
 			content: post.default,
 			meta: {
 				...post.metadata,
-				readingTime: readingTime
-				// Optional: slug: params.slug (kalau mau slug di meta juga)
+				readingTime: calculateReadingTime(articleText)
 			}
 		};
 	} catch (e) {

@@ -37,32 +37,37 @@
       }, 2000);
     });
 
-    // Debug: Listen for auth messages
+    // Debug: Listen for ALL messages
     window.addEventListener('message', function(event) {
-      console.log('Admin received message:', event.data, 'from origin:', event.origin);
+      console.log('=== MESSAGE RECEIVED ===');
+      console.log('Data:', event.data);
+      console.log('Origin:', event.origin);
+      console.log('Type of data:', typeof event.data);
+      console.log('========================');
       
       // Check if it's an auth success message
       if (event.data) {
         const data = event.data;
+        let isAuthSuccess = false;
         
         // Handle string format: "authorization:github:success:token"
         if (typeof data === 'string' && data.includes('authorization:github:success')) {
-          console.log('Received GitHub auth success (string format)');
-          // Force CMS to recognize the auth
-          setTimeout(() => {
-            console.log('Reloading to refresh CMS state');
-            window.location.reload();
-          }, 500);
+          console.log('✅ Received GitHub auth success (string format)');
+          isAuthSuccess = true;
         }
         
         // Handle object format
         if (typeof data === 'object' && data.type && data.type.includes('authorization:github:success')) {
-          console.log('Received GitHub auth success (object format)');
-          // Force CMS to recognize the auth
+          console.log('✅ Received GitHub auth success (object format)');
+          isAuthSuccess = true;
+        }
+
+        if (isAuthSuccess) {
+          console.log('🔄 Will reload page in 1 second...');
           setTimeout(() => {
-            console.log('Reloading to refresh CMS state');
+            console.log('🔄 Reloading page now');
             window.location.reload();
-          }, 500);
+          }, 1000);
         }
       }
     });

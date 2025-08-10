@@ -47,34 +47,39 @@ export async function GET({ url }) {
           var state = ${JSON.stringify(state)};
           var tokenType = ${JSON.stringify(tokenType)};
           
-          // Get the correct origin
-          var origin = window.location.origin;
-          var referrerOrigin = '';
-          try {
-            referrerOrigin = new URL(document.referrer).origin;
-          } catch (e) {}
+          console.log('Auth popup - Token received:', token ? 'YES' : 'NO');
+          console.log('Auth popup - State:', state);
+          console.log('Auth popup - Opener exists:', !!window.opener);
           
-          var targetOrigin = referrerOrigin || origin;
-          
-          console.log('Sending auth success message to:', targetOrigin);
-          console.log('Token:', token);
-          console.log('State:', state);
-
           function sendMessage() {
-            if (window.opener) {
-              // Send multiple message formats for compatibility
+            if (!window.opener) {
+              console.log('No opener window found');
+              return;
+            }
+
+            // Try different target origins
+            var origins = ['*', window.location.origin];
+            if (document.referrer) {
+              try {
+                origins.unshift(new URL(document.referrer).origin);
+              } catch (e) {}
+            }
+
+            origins.forEach(function(targetOrigin) {
+              console.log('Sending to origin:', targetOrigin);
               
-              // Format 1: Legacy string format
+              // Format 1: Decap expected format
               try {
                 window.opener.postMessage(
                   'authorization:' + provider + ':success:' + token,
                   targetOrigin
                 );
+                console.log('Sent legacy format to:', targetOrigin);
               } catch (e) {
-                console.error('Legacy message failed:', e);
+                console.error('Legacy format failed:', e);
               }
 
-              // Format 2: Modern object format
+              // Format 2: Object format
               try {
                 window.opener.postMessage({
                   type: 'authorization:' + provider + ':success',
@@ -83,38 +88,23 @@ export async function GET({ url }) {
                   provider: provider,
                   state: state
                 }, targetOrigin);
+                console.log('Sent object format to:', targetOrigin);
               } catch (e) {
-                console.error('Modern message failed:', e);
+                console.error('Object format failed:', e);
               }
-
-              // Format 3: Alternative object format
-              try {
-                window.opener.postMessage({
-                  type: 'authorization:github:success',
-                  data: {
-                    token: token,
-                    provider: provider,
-                    state: state
-                  }
-                }, targetOrigin);
-              } catch (e) {
-                console.error('Alt message failed:', e);
-              }
-
-              // Close the popup after a short delay
-              setTimeout(function() {
-                window.close();
-              }, 1000);
-            } else {
-              // Fallback: redirect to admin
-              console.log('No opener found, redirecting to admin');
-              window.location.href = origin + '/admin/';
-            }
+            });
           }
 
-          // Send message immediately and also after a short delay
+          // Send messages with different timings
           sendMessage();
           setTimeout(sendMessage, 100);
+          setTimeout(sendMessage, 500);
+
+          // Close popup
+          setTimeout(function() {
+            console.log('Closing popup');
+            window.close();
+          }, 2000);
         })();
       </script>
     </body></html>`;

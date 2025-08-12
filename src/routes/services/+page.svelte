@@ -195,12 +195,14 @@
 		<div class="grid items-center gap-8 py-16 sm:py-20 lg:grid-cols-12 lg:py-24">
 			<!-- Content -->
 			<div class="lg:col-span-6">
-				<h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
-					Data yang Jelas, <span class="text-blue-600">Keputusan Tepat</span>
+				<h1
+					class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl dark:text-white"
+				>
+					Data Lebih Jelas, <span class="text-blue-600">Keputusan Tepat</span>
 				</h1>
 				<p class="mt-6 max-w-xl text-lg leading-8 text-gray-600 dark:text-white">
-					Saya bantu Anda membuat dashboard Looker Studio dan visualisasi data yang rapi—agar tim
-					memahami performa bisnis dalam hitungan detik, bukan jam.
+					Membantu Anda memahami performa bisnis dengan cepat melalui Visualisasi Data dan Dashboard
+					interaktif
 				</p>
 
 				<!-- CTA Buttons -->
@@ -214,7 +216,7 @@
 					</a>
 					<a
 						href="/projects"
-						class="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-6 py-3 font-semibold text-gray-700 transition-all duration-200 hover:bg-blue-600 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:outline-none dark:text-white"
+						class="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-6 py-3 font-semibold text-gray-700 transition-all duration-200 hover:bg-blue-600 hover:text-white focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:outline-none dark:text-white"
 					>
 						<ChartBar class="size-5" />
 						Lihat Portfolio

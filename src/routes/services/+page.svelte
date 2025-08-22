@@ -10,6 +10,7 @@
 		CheckCircle,
 		ChevronDown
 	} from '@lucide/svelte';
+	import Seo from '$lib/components/Seo.svelte';
 
 	// Services data - improved structure
 	const services = [
@@ -120,31 +121,16 @@
 	};
 </script>
 
+<Seo
+	title="Layanan Dashboard Looker Studio & Data Visualization | Emen"
+	description="Layanan profesional pembuatan dashboard Looker Studio, visualisasi data, dan analisis bisnis. Bantu tim Anda mengambil keputusan lebih cepat dengan data yang jelas dan actionable. Paket mulai 3.5jt untuk UMKM hingga enterprise."
+	type="website"
+	imageUrl="/images/services/hero-dashboard.webp"
+	tags={['dashboard looker studio', 'data visualization', 'business intelligence', 'analytics indonesia', 'google data studio']}
+/>
+
 <svelte:head>
-	<title>Layanan Dashboard Looker Studio & Data Visualization | Emen</title>
-	<meta
-		name="description"
-		content="Layanan profesional pembuatan dashboard Looker Studio, visualisasi data, dan analisis bisnis. Bantu tim Anda mengambil keputusan lebih cepat dengan data yang jelas dan actionable."
-	/>
-	<meta
-		name="keywords"
-		content="dashboard looker studio, data visualization, business intelligence, analytics indonesia"
-	/>
-
-	<!-- Open Graph -->
-	<meta property="og:title" content="Layanan Dashboard Looker Studio & Data Visualization" />
-	<meta
-		property="og:description"
-		content="Dashboard yang jelas, keputusan yang tepat. Layanan profesional untuk UMKM sampai Enterprise."
-	/>
-	<meta property="og:type" content="website" />
-	<meta property="og:locale" content="id_ID" />
-
-	<!-- Preconnect for performance -->
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-	<!-- Structured Data -->
+	<!-- Service-specific structured data -->
 	<script type="application/ld+json">
 		{JSON.stringify({
 			'@context': 'https://schema.org',
@@ -400,7 +386,7 @@
 		</div>
 
 		<div class="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-			{#each services as service, index}
+			{#each services as service}
 				<article
 					class="group relative rounded-2xl border border-gray-200 bg-white p-8 shadow-sm transition-all duration-300 hover:border-blue-200 hover:shadow-lg dark:border-gray-700 dark:bg-gray-800 dark:hover:border-blue-600"
 				>

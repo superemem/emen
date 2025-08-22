@@ -18,9 +18,11 @@
 </script>
 
 <Seo
-	title={`${meta.title} - Project`}
-	description={meta.description || `Detail proyek ${meta.title}`}
-	image={heroSrc}
+	title={`${meta.title} - Project Portfolio`}
+	description={meta.description || `Detail proyek dashboard dan data visualization: ${meta.title} - Portfolio Emen sebagai Looker Studio Expert.`}
+	type="website"
+	imageUrl={heroSrc || '/emen-og-image.webp'}
+	tags={meta.tags || []}
 />
 
 <div class="container mx-auto max-w-3xl px-4 py-12 md:py-20">

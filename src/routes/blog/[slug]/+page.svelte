@@ -24,7 +24,15 @@
 		: null;
 </script>
 
-<Seo title={meta.title} description={meta.description} type="article" image={heroSrc} />
+<Seo 
+	title={meta.title} 
+	description={meta.description} 
+	type="article" 
+	imageUrl={heroSrc || '/emen-og-image.webp'}
+	author={author || 'Irfan Mursyidin (Emen)'}
+	publishedTime={meta.date}
+	tags={tags || []}
+/>
 
 <div class="container mx-auto max-w-3xl px-4 py-12 md:py-20">
 	<a

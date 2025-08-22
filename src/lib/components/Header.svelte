@@ -70,6 +70,14 @@
 					Home
 				</a>
 				<a
+					href="/services"
+					class="font-semibold text-slate-600 transition-colors hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+					class:text-blue-600={$page.url.pathname.startsWith('/services')}
+					class:dark:text-blue-400={$page.url.pathname.startsWith('/services')}
+				>
+					Services
+				</a>
+				<a
 					href="/projects"
 					class="font-semibold text-slate-600 transition-colors hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
 					class:text-blue-600={$page.url.pathname.startsWith('/projects')}
@@ -151,6 +159,11 @@
 				href="/"
 				class="py-2 text-2xl font-bold text-slate-900 dark:text-white"
 				on:click={closeMenu}>Home</a
+			>
+			<a
+				href="/services"
+				class="py-2 text-2xl font-bold text-slate-900 dark:text-white"
+				on:click={closeMenu}>Services</a
 			>
 			<a
 				href="/projects"

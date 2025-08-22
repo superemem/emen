@@ -46,7 +46,7 @@
 		{
 			icon: Settings,
 			title: 'Data Pipeline (Lightweight)',
-			desc: 'ETL ringan untuk Sheet → BigQuery → Looker Studio tanpa setup yang ribet.',
+			desc: 'ETL ringan untuk Sheet → Looker Studio tanpa setup yang ribet.',
 			points: [
 				'Automated connector & scheduling',
 				'Data quality checks & validation',
@@ -63,13 +63,13 @@
 		},
 		{
 			n: 2,
-			title: 'Design',
-			text: 'Wireframe dashboard layout, daftar chart/metric yang dibutuhkan, dan definisi data model.'
+			title: 'NDA Sign',
+			text: 'Tanda Tangan Non-Disclosure Agreement jika dibutuhkan.'
 		},
 		{
 			n: 3,
-			title: 'Build',
-			text: 'Setup data connection, implementasi data model, dan build dashboard sesuai design.'
+			title: 'Design & Build',
+			text: 'Design Dashboard dan Setup data connection, implementasi data model, dan build dashboard sesuai design.'
 		},
 		{
 			n: 4,
@@ -121,7 +121,7 @@
 </script>
 
 <svelte:head>
-	<title>Layanan Dashboard Looker Studio & Data Visualization | Irfan Mursyidin</title>
+	<title>Layanan Dashboard Looker Studio & Data Visualization | Emen</title>
 	<meta
 		name="description"
 		content="Layanan profesional pembuatan dashboard Looker Studio, visualisasi data, dan analisis bisnis. Bantu tim Anda mengambil keputusan lebih cepat dengan data yang jelas dan actionable."
@@ -198,7 +198,7 @@
 				<h1
 					class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl dark:text-white"
 				>
-					Data Lebih Jelas, <span class="text-blue-600">Keputusan Tepat</span>
+					Data Jelas, <span class="text-blue-600">Keputusan Tepat</span>
 				</h1>
 				<p class="mt-6 max-w-xl text-lg leading-8 text-gray-600 dark:text-white">
 					Membantu Anda memahami performa bisnis dengan cepat melalui Visualisasi Data dan Dashboard
@@ -226,8 +226,8 @@
 				<!-- Stats -->
 				<div class="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2">
 					<div class="rounded-xl border border-gray-200 bg-white p-4 text-center shadow-sm">
-						<div class="text-2xl font-bold text-gray-900">50+</div>
-						<div class="text-sm text-gray-600">Dashboard Deployed</div>
+						<div class="text-2xl font-bold text-gray-900">Actionable</div>
+						<div class="text-sm text-gray-600">Insight - Not Just Numbers</div>
 					</div>
 					<div class="rounded-xl border border-gray-200 bg-white p-4 text-center shadow-sm">
 						<div class="text-2xl font-bold text-gray-900">5–10 Hari</div>
@@ -263,6 +263,125 @@
 						🚀 5 Detik Load Time
 					</div>
 				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- WHY DASHBOARD SECTION -->
+<section class="py-16 sm:py-20 dark:bg-gray-800">
+	<div class="mx-auto max-w-7xl px-6 lg:px-8">
+		<div class="mx-auto max-w-2xl text-center">
+			<h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl dark:text-gray-100">
+				Kenapa Bisnis Butuh Dashboard?
+			</h2>
+			<p class="mt-4 text-lg leading-8 text-gray-600 dark:text-gray-400">
+				Dari spreadsheet manual ke insight real-time yang menggerakkan bisnis
+			</p>
+		</div>
+
+		<div class="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+			<div class="text-center">
+				<div
+					class="mx-auto flex size-16 items-center justify-center rounded-full bg-green-100 dark:bg-green-900"
+				>
+					<svg
+						class="size-8 text-green-600 dark:text-green-400"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+						/>
+					</svg>
+				</div>
+				<h3 class="mt-6 text-lg font-semibold text-gray-900 dark:text-gray-100">
+					Monitor Real-Time
+				</h3>
+				<p class="mt-2 text-gray-600 dark:text-gray-400">
+					Pantau performa bisnis setiap saat. Tidak perlu menunggu laporan bulanan untuk tahu ada
+					yang salah.
+				</p>
+			</div>
+
+			<div class="text-center">
+				<div
+					class="mx-auto flex size-16 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900"
+				>
+					<svg
+						class="size-8 text-blue-600 dark:text-blue-400"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"
+						/>
+					</svg>
+				</div>
+				<h3 class="mt-6 text-lg font-semibold text-gray-900 dark:text-gray-100">
+					Keputusan Lebih Cepat
+				</h3>
+				<p class="mt-2 text-gray-600 dark:text-gray-400">
+					Dari "feeling" ke data-driven decision. Lihat trend, identifikasi masalah, ambil tindakan
+					dalam hitungan menit.
+				</p>
+			</div>
+
+			<div class="text-center">
+				<div
+					class="mx-auto flex size-16 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900"
+				>
+					<svg
+						class="size-8 text-purple-600 dark:text-purple-400"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"
+						/>
+					</svg>
+				</div>
+				<h3 class="mt-6 text-lg font-semibold text-gray-900 dark:text-gray-100">Adaptasi Cepat</h3>
+				<p class="mt-2 text-gray-600 dark:text-gray-400">
+					Respon perubahan pasar dengan cepat. Pivot strategi marketing atau operasional berdasarkan
+					data terkini.
+				</p>
+			</div>
+
+			<div class="text-center">
+				<div
+					class="mx-auto flex size-16 items-center justify-center rounded-full bg-orange-100 dark:bg-orange-900"
+				>
+					<svg
+						class="size-8 text-orange-600 dark:text-orange-400"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+						/>
+					</svg>
+				</div>
+				<h3 class="mt-6 text-lg font-semibold text-gray-900 dark:text-gray-100">Data Terpercaya</h3>
+				<p class="mt-2 text-gray-600 dark:text-gray-400">
+					Hindari human error dari manual reporting. Satu source of truth untuk seluruh tim.
+				</p>
 			</div>
 		</div>
 	</div>

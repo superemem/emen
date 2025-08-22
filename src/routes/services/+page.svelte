@@ -215,11 +215,11 @@
 						Konsultasi Gratis
 					</a>
 					<a
-						href="/projects"
+						href="https://lookerstudio.google.com/s/jNQFNSu2S0Q"
 						class="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-6 py-3 font-semibold text-gray-700 transition-all duration-200 hover:bg-blue-600 hover:text-white focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:outline-none dark:text-white"
 					>
 						<ChartBar class="size-5" />
-						Lihat Portfolio
+						Lihat Contoh Dashboard
 					</a>
 				</div>
 

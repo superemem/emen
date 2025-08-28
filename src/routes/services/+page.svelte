@@ -131,48 +131,46 @@
 
 <svelte:head>
 	<!-- Service-specific structured data -->
-	<script type="application/ld+json">
-		{JSON.stringify({
-			'@context': 'https://schema.org',
-			'@type': 'Service',
-			name: 'Dashboard Looker Studio & Data Visualization Services',
-			description: 'Layanan profesional pembuatan dashboard interaktif dan visualisasi data untuk keputusan bisnis yang lebih cepat dan tepat.',
-			provider: {
-				'@type': 'Person',
-				name: 'Irfan Mursyidin',
-				email: 'halo@emen.web.id',
-				telephone: '+6281945140191'
-			},
-			areaServed: {
-				'@type': 'Country',
-				name: 'Indonesia'
-			},
-			offers: [
-				{
-					'@type': 'Offer',
-					name: 'Starter Package',
-					description: 'Dashboard inti untuk UMKM dengan single data source',
-					priceSpecification: {
-						'@type': 'PriceSpecification',
-						price: '3500000',
-						priceCurrency: 'IDR',
-						valueAddedTaxIncluded: false
-					}
-				},
-				{
-					'@type': 'Offer',
-					name: 'Growth Package',
-					description: 'Multiple dashboard untuk SME dengan multi data sources',
-					priceSpecification: {
-						'@type': 'PriceSpecification',
-						price: '7500000',
-						priceCurrency: 'IDR',
-						valueAddedTaxIncluded: false
-					}
+	{@html `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'Service',
+		name: 'Dashboard Looker Studio & Data Visualization Services',
+		description: 'Layanan profesional pembuatan dashboard interaktif dan visualisasi data untuk keputusan bisnis yang lebih cepat dan tepat.',
+		provider: {
+			'@type': 'Person',
+			name: 'Irfan Mursyidin',
+			email: 'mailto:halo@emen.web.id',
+			telephone: '+6281945140191'
+		},
+		areaServed: {
+			'@type': 'Country',
+			name: 'Indonesia'
+		},
+		offers: [
+			{
+				'@type': 'Offer',
+				name: 'Starter Package',
+				description: 'Dashboard inti untuk UMKM dengan single data source',
+				priceSpecification: {
+					'@type': 'PriceSpecification',
+					price: '3500000',
+					priceCurrency: 'IDR',
+					valueAddedTaxIncluded: false
 				}
-			]
-		})}
-	</script>
+			},
+			{
+				'@type': 'Offer',
+				name: 'Growth Package',
+				description: 'Multiple dashboard untuk SME dengan multi data sources',
+				priceSpecification: {
+					'@type': 'PriceSpecification',
+					price: '7500000',
+					priceCurrency: 'IDR',
+					valueAddedTaxIncluded: false
+				}
+			}
+		]
+	})}</script>`}
 </svelte:head>
 
 <!-- HERO SECTION -->

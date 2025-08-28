@@ -144,7 +144,7 @@
 	
 	<!-- Structured Data - Person Schema -->
 	<script type="application/ld+json">
-		{JSON.stringify(personSchema)}
+		{JSON.stringify(personSchema, null, 0)}
 	</script>
 	
 	<!-- Structured Data - Article Schema untuk blog posts -->

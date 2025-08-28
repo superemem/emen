@@ -21,6 +21,7 @@ export async function GET() {
 		<url><loc>${siteURL}/</loc><changefreq>daily</changefreq></url>
 		<url><loc>${siteURL}/projects</loc><changefreq>weekly</changefreq></url>
 		<url><loc>${siteURL}/blog</loc><changefreq>monthly</changefreq></url>
+		<url><loc>${siteURL}/services</loc><changefreq>weekly</changefreq></url>
 	`;
 
 	const body = `<?xml version="1.0" encoding="UTF-8" ?>

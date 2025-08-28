@@ -28,7 +28,7 @@
 				class="group flex items-center justify-between rounded-lg border border-transparent p-4 shadow-md transition-all hover:bg-white hover:shadow-md dark:bg-gray-800 dark:shadow-xl"
 			>
 				<h2
-					class="text-xl font-bold text-slate-800 transition-colors group-hover:text-blue-600 dark:text-white"
+					class="text-xl font-bold text-slate-800 transition-colors group-hover:text-brand-navy dark:text-white"
 				>
 					{project.title}
 				</h2>

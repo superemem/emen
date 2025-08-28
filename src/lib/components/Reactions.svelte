@@ -1,5 +1,6 @@
 <script>
-	import { supabase } from '$lib/supabaseClient.js'; // Atur path sesuai projectmu
+    import { supabase } from '$lib/supabaseClient.js'; // Atur path sesuai projectmu
+    import { browser } from '$app/environment';
 	export let slug;
 
 	// Daftar emoji yang boleh direaksi user
@@ -9,14 +10,15 @@
 	let hasReacted = false;
 	$: storageKey = `reacted_${slug}`;
 
-	// Ambil data reaksi ketika slug berubah
-	$: if (slug) fetchReactions();
+    // Ambil data reaksi ketika slug berubah (hanya di browser)
+    $: if (browser && slug) fetchReactions();
 
 	$: console.log('[DEBUG] Reactions slug:', slug);
 
-	async function fetchReactions() {
-		isLoading = true;
-		console.log('[DEBUG] Mulai fetch reaction', slug);
+    async function fetchReactions() {
+        if (!browser) return; // hindari jalan saat SSR/prerender
+        isLoading = true;
+        console.log('[DEBUG] Mulai fetch reaction', slug);
 		const base = {};
 		for (const emoji of allowedEmojis) base[emoji] = 0;
 		reactionCounts = base;

@@ -1,9 +1,8 @@
 <!-- File: src/lib/components/Header.svelte -->
 
 <script>
-	import { Menu, X, Sun, Moon } from '@lucide/svelte';
-	import { slide, fade } from 'svelte/transition';
-	import { onMount } from 'svelte';
+    import { Menu, X, Sun, Moon } from '@lucide/svelte';
+    import { slide, fade } from 'svelte/transition';
 	import { page } from '$app/stores';
 
 	import { theme } from '$lib/stores/themeStore';
@@ -49,47 +48,47 @@
 
 <header class="sticky top-0 z-30 transition-all duration-200 {headerBgClass} {headerShadowClass}">
 	<div class="container mx-auto">
-		<nav class="flex items-center justify-between p-4 md:p-6">
+		<nav class="flex items-center justify-between p-4 md:p-5">
 			<a
 				href="/"
-				class="text-xl font-bold text-slate-900 transition-colors hover:text-blue-600 dark:text-white dark:hover:text-blue-400"
+				class="text-xl font-bold tracking-tight text-slate-900 transition-colors hover:text-brand-navy dark:text-white dark:hover:text-brand-navy"
 				on:click={closeMenu}
 			>
 				Emen.
 			</a>
 
 			<!-- Menu untuk Desktop -->
-			<div class="hidden items-center gap-8 md:flex">
+			<div class="hidden items-center gap-6 md:flex">
 				<!-- Perbaikan: Pastikan ada kelas warna default untuk mode terang -->
 				<a
 					href="/"
-					class="font-semibold text-slate-600 transition-colors hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
-					class:text-blue-600={$page.url.pathname === '/'}
-					class:dark:text-blue-400={$page.url.pathname === '/'}
+					class="font-semibold text-slate-600 transition-colors hover:text-brand-navy dark:text-gray-300 dark:hover:text-brand-navy"
+					class:text-brand-navy={$page.url.pathname === '/'}
+					class:dark:text-brand-navy={$page.url.pathname === '/'}
 				>
 					Home
 				</a>
 				<a
 					href="/services"
-					class="font-semibold text-slate-600 transition-colors hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
-					class:text-blue-600={$page.url.pathname.startsWith('/services')}
-					class:dark:text-blue-400={$page.url.pathname.startsWith('/services')}
+					class="font-semibold text-slate-600 transition-colors hover:text-brand-navy dark:text-gray-300 dark:hover:text-brand-navy"
+					class:text-brand-navy={$page.url.pathname.startsWith('/services')}
+					class:dark:text-brand-navy={$page.url.pathname.startsWith('/services')}
 				>
 					Services
 				</a>
 				<a
 					href="/projects"
-					class="font-semibold text-slate-600 transition-colors hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
-					class:text-blue-600={$page.url.pathname.startsWith('/projects')}
-					class:dark:text-blue-400={$page.url.pathname.startsWith('/projects')}
+					class="font-semibold text-slate-600 transition-colors hover:text-brand-navy dark:text-gray-300 dark:hover:text-brand-navy"
+					class:text-brand-navy={$page.url.pathname.startsWith('/projects')}
+					class:dark:text-brand-navy={$page.url.pathname.startsWith('/projects')}
 				>
 					Project
 				</a>
 				<a
 					href="/blog"
-					class="font-semibold text-slate-600 transition-colors hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
-					class:text-blue-600={$page.url.pathname.startsWith('/blog')}
-					class:dark:text-blue-400={$page.url.pathname.startsWith('/blog')}
+					class="font-semibold text-slate-600 transition-colors hover:text-brand-navy dark:text-gray-300 dark:hover:text-brand-navy"
+					class:text-brand-navy={$page.url.pathname.startsWith('/blog')}
+					class:dark:text-brand-navy={$page.url.pathname.startsWith('/blog')}
 				>
 					Blog
 				</a>
@@ -153,26 +152,26 @@
 		transition:slide={{ duration: 300, axis: 'x' }}
 		class="fixed top-0 right-0 z-20 flex h-screen w-4/5 max-w-xs flex-col bg-slate-50 p-6 dark:bg-gray-800 dark:text-white"
 	>
-		<nav class="mt-12 flex flex-col gap-6">
+		<nav class="mt-12 flex flex-col gap-4">
 			<!-- Perbaikan: Pastikan ada kelas warna default untuk mode terang -->
 			<a
 				href="/"
-				class="py-2 text-2xl font-bold text-slate-900 dark:text-white"
+				class="py-2 text-2xl font-bold text-slate-900 transition-colors hover:text-brand-navy dark:text-white dark:hover:text-brand-navy"
 				on:click={closeMenu}>Home</a
 			>
 			<a
 				href="/services"
-				class="py-2 text-2xl font-bold text-slate-900 dark:text-white"
+				class="py-2 text-2xl font-bold text-slate-900 transition-colors hover:text-brand-navy dark:text-white dark:hover:text-brand-navy"
 				on:click={closeMenu}>Services</a
 			>
 			<a
 				href="/projects"
-				class="py-2 text-2xl font-bold text-slate-900 dark:text-white"
+				class="py-2 text-2xl font-bold text-slate-900 transition-colors hover:text-brand-navy dark:text-white dark:hover:text-brand-navy"
 				on:click={closeMenu}>Project</a
 			>
 			<a
 				href="/blog"
-				class="py-2 text-2xl font-bold text-slate-900 dark:text-white"
+				class="py-2 text-2xl font-bold text-slate-900 transition-colors hover:text-brand-navy dark:text-white dark:hover:text-brand-navy"
 				on:click={closeMenu}>Blog</a
 			>
 			<button

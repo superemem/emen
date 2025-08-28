@@ -41,27 +41,27 @@
 	<!-- Daftar artikel:
          - space-y-10 tetap untuk jarak vertikal antar kartu.
     -->
-	<div class="space-y-10">
-		{#each data.posts as post, i (post.slug)}
+		<div class="space-y-10">
+			{#each data.posts as post, i (post.slug)}
 			<!-- Kartu blog:
                  - text-center dihapus dari kartu (penting agar teks di dalamnya bisa rata kiri).
                  - p-8 tetap untuk padding internal.
                  - shadow-md dan hover efek tetap dipertahankan.
             -->
-			<a
-				href={`/blog/${post.slug}`}
-				class="group block rounded-xl bg-white p-8 shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl dark:bg-gray-800 dark:shadow-xl"
-				in:fly={{ y: 20, duration: 600 }}
-			>
+				<a
+					href={`/blog/${post.slug}`}
+					class="group block rounded-xl border border-slate-200 bg-white p-8 transition-colors hover:bg-slate-50 dark:border-gray-700 dark:bg-gray-900/40 dark:hover:bg-gray-900"
+					in:fly={{ y: 20, duration: 600 }}
+				>
 				<article>
 					<!-- Tanggal: text-left ditambahkan -->
 					<p class="text-left text-sm text-slate-500 dark:text-slate-400">
 						{formatDate(post.date)}
 					</p>
 					<!-- Judul: text-left ditambahkan -->
-					<h2
-						class="mt-2 text-left text-3xl font-bold text-slate-900 transition-colors group-hover:text-blue-600 dark:text-white"
-					>
+						<h2
+							class="mt-2 text-left text-3xl font-bold text-slate-900 transition-colors group-hover:text-brand-navy dark:text-white"
+						>
 						{post.title}
 					</h2>
 					<!-- Deskripsi: mx-auto dihapus, text-left ditambahkan -->

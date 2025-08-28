@@ -1,6 +1,9 @@
 // svelte.config.js
 
 import { mdsvex } from 'mdsvex';
+import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypePrettyCode from 'rehype-pretty-code';
 import adapter from '@sveltejs/adapter-auto';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
@@ -8,7 +11,26 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
  * @type {import('mdsvex').MdsvexOptions}
  */
 const mdsvexOptions = {
-	extensions: ['.md'] // Kita hanya pakai .md untuk sekarang
+	extensions: ['.md'], // Kita hanya pakai .md untuk sekarang
+	rehypePlugins: [
+		rehypeSlug,
+		[
+			rehypeAutolinkHeadings,
+			{
+				behavior: 'wrap',
+				properties: {
+					class: 'heading-anchor'
+				}
+			}
+		],
+		[
+			rehypePrettyCode,
+			{
+				theme: 'one-dark-pro',
+				keepBackground: false
+			}
+		]
+	]
 };
 
 /** @type {import('@sveltejs/kit').Config} */

@@ -10,7 +10,7 @@
 	// Import theme store dari file yang sudah kita buat
 	// Ini penting agar seluruh layout bisa merespons perubahan tema
     import { theme } from '$lib/stores/themeStore';
-    import { env as publicEnv } from '$env/dynamic/public';
+    import * as publicEnv from '$env/static/public';
     const PUBLIC_GA_ID = publicEnv.PUBLIC_GA_ID;
 
 	// Karena tombol toggle sudah di Header.svelte, kita tidak perlu

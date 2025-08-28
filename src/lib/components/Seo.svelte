@@ -36,7 +36,7 @@
 		"description": "Digital Marketing Strategist dengan expertise di SEO, dashboard design, dan data visualization menggunakan Looker Studio, Google Analytics, dan BigQuery.",
 		"url": "https://emen.web.id",
 		"image": ogImage,
-		"email": "halo@emen.web.id",
+		"email": "mailto:halo@emen.web.id",
 		"sameAs": [
 			"https://linkedin.com/in/emenn",
 			"https://instagram.com/super.emen"
@@ -70,7 +70,7 @@
 			"name": author
 		},
 		"publisher": {
-			"@type": "Person",
+			"@type": "Organization",
 			"name": "Emen",
 			"logo": {
 				"@type": "ImageObject",
@@ -83,8 +83,12 @@
 			"@type": "WebPage",
 			"@id": url
 		},
-		"keywords": tags.join(', ')
+		"keywords": Array.isArray(tags) && tags.length > 0 ? tags.join(', ') : ""
 	} : null;
+
+	// Pre-compute JSON strings untuk structured data
+	const personJSON = JSON.stringify(personSchema);
+	const articleJSON = articleSchema ? JSON.stringify(articleSchema) : null;
 </script>
 
 <svelte:head>
@@ -143,14 +147,10 @@
 	<meta name="distribution" content="global" />
 	
 	<!-- Structured Data - Person Schema -->
-	<script type="application/ld+json">
-		{JSON.stringify(personSchema, null, 0)}
-	</script>
+	{@html `<script type="application/ld+json">${personJSON}</script>`}
 	
 	<!-- Structured Data - Article Schema untuk blog posts -->
-	{#if articleSchema}
-		<script type="application/ld+json">
-			{JSON.stringify(articleSchema)}
-		</script>
+	{#if articleJSON}
+		{@html `<script type="application/ld+json">${articleJSON}</script>`}
 	{/if}
 </svelte:head>
